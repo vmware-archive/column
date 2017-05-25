@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+    - shell: echo "hello world"
+    - name: This task will fail
+      fail: msg="failed task"
