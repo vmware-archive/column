@@ -2,7 +2,7 @@
 
 * A stable API for Ansible *
 
-## Introduction
+## Overview
 Column is a thin wrapper on top of ansible API, to serve
 as an entry point for other code when ansible is needed. As the ansible
 internal API is not officially exposed and thus changes are very likely,
@@ -16,18 +16,34 @@ Both of them implement API described in column.Runner.
 Each runner exposes two public methods:
 run_playbook() and run_module().
 
-## Installing
+## Try it out
+
+### Prerequisites
+* python 2.7 (python 3 is not fully supported by ansible)
+* ansible 2.x
+* six library
+
+### Install & use
+Install with pip:
+```bash
+pip install column
+```
+and in your python code do:
+```python
+from column import APIRunner
+api_runner = APIRunner()
+api_runner.run_module('localhost', remote_user=None)
+```
+
+## Documentation
 TBD
 
-## Examples
-TBD
+## Releases & Major Branches
+Column is still in alpha state, currently at version 0.2.0.
 
-## Contribution guidelines
+## Contributing
 
-Contribution and feature requests are more than welcome. Please use the following methods:
-
-* For bugs and feature requests, use GitHub issues feature. register with details of the problem or specifics of requested feature.
-* For code contribution (bug fixes, or feature request), please fork Column, create a feature branch, push your code, then submit a pull request.
+The Column project team welcomes contributions from the community. Before you start working with Column, please read our [Developer Certificate of Origin](https://cla.vmware.com/dco). All contributions to this repository must be signed as described on that page. Your signature certifies that you wrote the patch or have the right to pass it on as an open-source patch. For more detailed information, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
