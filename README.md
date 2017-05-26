@@ -39,7 +39,7 @@ api_runner.run_module('localhost', remote_user=None)
 TBD
 
 ## Releases & Major Branches
-Column is still in alpha state, currently at version 0.2.0.
+Column is still in alpha state, currently at version 0.3.0.
 
 ## Contributing
 
@@ -47,11 +47,11 @@ The Column project team welcomes contributions from the community. Before you st
 
 ## License
 
-Column 0.2.0
+Column 0.3.0
 
 Copyright © 2017 VMware, Inc.  All rights reserved.
 
-The BSD-2 license (the "License") set forth below applies to all parts of the VMware Column 0.2.0
+The BSD-2 license (the "License") set forth below applies to all parts of the VMware Column 0.3.0
 project. You may not use this file except in compliance with the License.
 
 BSD-2 License
