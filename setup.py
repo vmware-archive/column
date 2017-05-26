@@ -25,7 +25,7 @@ from setuptools import setup
 setup(
     name='column',
     version='0.2.0',
-    url='https://www.vmware.com/products/openstack.html',
+    url='https://github.com/vmware/column',
     license='BSD-2',
     author='VMware',
     author_email='openstack@vmware.com',
