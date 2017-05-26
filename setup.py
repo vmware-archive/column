@@ -24,7 +24,7 @@ from setuptools import setup
 
 setup(
     name='column',
-    version='0.2',
+    version='0.2.0',
     url='https://www.vmware.com/products/openstack.html',
     license='BSD-2',
     author='VMware',
@@ -42,8 +42,6 @@ setup(
         'Intended Audience :: Information Technology',
         'Operating System :: POSIX :: Linux',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7'
     ]
 )
