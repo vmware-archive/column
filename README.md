@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/vmware/column.svg?branch=master)](https://travis-ci.org/vmware/column)
+
 # Column
 
 * A stable API for Ansible *
