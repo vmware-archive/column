@@ -16,6 +16,7 @@ from ansible.utils.vars import load_extra_vars
 from ansible.vars import VariableManager
 
 from column import callback
+from column import exceptions
 from column import runner
 
 
@@ -187,6 +188,13 @@ class APIRunner(runner.Runner):
         }
         args.update(self.custom_opts)
         args.update(kwargs)
+        # In ansible 2.2, tags can be a string or a list, but only a list
+        # is supported in 2.3.
+        if isinstance(args['tags'], str):
+            args['tags'] = args['tags'].split(',')
+        elif not isinstance(args['tags'], list):
+            raise exceptions.InvalidParameter(name=type(args['tags']).__name__,
+                                              param='tag')
         return Namespace(**args)
 
     def _play_ds(self, hosts, module_name, module_args):
