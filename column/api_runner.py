@@ -45,6 +45,12 @@ class APIRunner(runner.Runner):
         super(self.__class__, self).__init__(inventory_file, **kwargs)
         self._callbacks = []
 
+    def get_progress(self):
+        for c in self._callbacks:
+            if c.__class__.__name__ == 'AnsibleTrackProgress':
+                return c.progress
+        return None
+
     def run_playbook(self, playbook_file, inventory_file=None, **kwargs):
         if inventory_file is None:
             inventory_file = self.inventory_file
