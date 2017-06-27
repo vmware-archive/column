@@ -12,7 +12,6 @@ from ansible import inventory
 from ansible.parsing import dataloader
 from ansible.parsing.splitter import parse_kv
 from ansible.playbook.play import Play
-from ansible.utils.vars import load_extra_vars
 from ansible.vars import VariableManager
 
 from column import callback
@@ -69,11 +68,7 @@ class APIRunner(runner.Runner):
 
         variable_manager = VariableManager()
         loader = dataloader.DataLoader()
-        if isinstance(options.extra_vars, dict):
-            options.extra_vars = ['%s="%s"' % (k, v) for k, v in
-                                  options.extra_vars.iteritems()]
-        variable_manager.extra_vars = load_extra_vars(loader=loader,
-                                                      options=options)
+        variable_manager.extra_vars = options.extra_vars
 
         ansible_inv = inventory.Inventory(loader=loader,
                                           variable_manager=variable_manager,
@@ -123,11 +118,7 @@ class APIRunner(runner.Runner):
 
         variable_manager = VariableManager()
         loader = dataloader.DataLoader()
-        if isinstance(options.extra_vars, dict):
-            options.extra_vars = ['%s="%s"' % (k, v) for k, v in
-                                  options.extra_vars.iteritems()]
-        variable_manager.extra_vars = load_extra_vars(loader=loader,
-                                                      options=options)
+        variable_manager.extra_vars = options.extra_vars
 
         ansible_inv = inventory.Inventory(loader=loader,
                                           variable_manager=variable_manager,
@@ -181,7 +172,7 @@ class APIRunner(runner.Runner):
             'forks': a_const.DEFAULT_FORKS,
             'inventory': inventory_file,
             'private_key_file': a_const.DEFAULT_PRIVATE_KEY_FILE,
-            'extra_vars': [], 'subset': a_const.DEFAULT_SUBSET,
+            'extra_vars': {}, 'subset': a_const.DEFAULT_SUBSET,
             'tags': [], 'verbosity': 0,
             'connection': a_const.DEFAULT_TRANSPORT,
             'timeout': a_const.DEFAULT_TIMEOUT
