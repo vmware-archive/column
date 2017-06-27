@@ -173,7 +173,7 @@ class APIRunner(runner.Runner):
             'forks': a_const.DEFAULT_FORKS,
             'inventory': inventory_file,
             'private_key_file': a_const.DEFAULT_PRIVATE_KEY_FILE,
-            'extra_vars': [], 'subset': a_const.DEFAULT_SUBSET,
+            'extra_vars': {}, 'subset': a_const.DEFAULT_SUBSET,
             'tags': [], 'verbosity': 0,
             'connection': a_const.DEFAULT_TRANSPORT,
             'timeout': a_const.DEFAULT_TIMEOUT
