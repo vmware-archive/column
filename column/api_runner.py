@@ -12,7 +12,6 @@ from ansible import inventory
 from ansible.parsing import dataloader
 from ansible.parsing.splitter import parse_kv
 from ansible.playbook.play import Play
-from ansible.utils.vars import load_extra_vars
 from ansible.vars import VariableManager
 
 from column import callback
