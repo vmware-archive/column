@@ -69,11 +69,7 @@ class APIRunner(runner.Runner):
 
         variable_manager = VariableManager()
         loader = dataloader.DataLoader()
-        if isinstance(options.extra_vars, dict):
-            options.extra_vars = ['%s="%s"' % (k, v) for k, v in
-                                  options.extra_vars.iteritems()]
-        variable_manager.extra_vars = load_extra_vars(loader=loader,
-                                                      options=options)
+        variable_manager.extra_vars = options.extra_vars
 
         ansible_inv = inventory.Inventory(loader=loader,
                                           variable_manager=variable_manager,
@@ -123,11 +119,7 @@ class APIRunner(runner.Runner):
 
         variable_manager = VariableManager()
         loader = dataloader.DataLoader()
-        if isinstance(options.extra_vars, dict):
-            options.extra_vars = ['%s="%s"' % (k, v) for k, v in
-                                  options.extra_vars.iteritems()]
-        variable_manager.extra_vars = load_extra_vars(loader=loader,
-                                                      options=options)
+        variable_manager.extra_vars = options.extra_vars
 
         ansible_inv = inventory.Inventory(loader=loader,
                                           variable_manager=variable_manager,
