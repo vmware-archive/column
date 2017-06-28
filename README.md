@@ -1,6 +1,7 @@
 ![Column](https://github.com/vmware/column/blob/master/column.png "Column")
 
 [![Build Status](https://travis-ci.org/vmware/column.svg?branch=master)](https://travis-ci.org/vmware/column)
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/vmware/column/blob/master/LICENSE)
 
 ## Overview
 Column is a thin wrapper on top of ansible API, to serve
