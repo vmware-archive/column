@@ -1,8 +1,6 @@
-[![Build Status](https://travis-ci.org/vmware/column.svg?branch=master)](https://travis-ci.org/vmware/column)
-
 ![Column](https://github.com/vmware/column/blob/master/column.png "Column")
 
-A stable API for Ansible
+[![Build Status](https://travis-ci.org/vmware/column.svg?branch=master)](https://travis-ci.org/vmware/column)
 
 ## Overview
 Column is a thin wrapper on top of ansible API, to serve
