@@ -1,9 +1,9 @@
 ![Column](https://github.com/vmware/column/blob/master/column.png "Column")
 
 [![Build Status](https://travis-ci.org/vmware/column.svg?branch=master)](https://travis-ci.org/vmware/column)
-[![Latest Version](https://img.shields.io/pypi/v/column.svg)](https://pypi.python.org/pypi/bandit/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/column.svg)](https://pypi.python.org/pypi/bandit/)
-[![Format](https://img.shields.io/pypi/format/column.svg)](https://pypi.python.org/pypi/bandit/)
+[![Latest Version](https://img.shields.io/pypi/v/column.svg)](https://pypi.python.org/pypi/column/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/column.svg)](https://pypi.python.org/pypi/column/)
+[![Format](https://img.shields.io/pypi/format/column.svg)](https://pypi.python.org/pypi/column/)
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/vmware/column/blob/master/LICENSE)
 
 ## Overview
