@@ -23,6 +23,7 @@ def reload_log_path(log_path):
 
 
 def get_vault_secret(deployment_path, secret):
+    reload(constants)
     filename = '{0}/credentials/{1}'.format(deployment_path, secret)
     vault_password = cli.CLI.read_vault_password_file(
         constants.DEFAULT_VAULT_PASSWORD_FILE, dataloader.DataLoader())
@@ -34,6 +35,7 @@ def get_vault_secret(deployment_path, secret):
 
 
 def update_vault_secret(key, value, pathdir):
+    reload(constants)
     vault_password = cli.CLI.read_vault_password_file(
         constants.DEFAULT_VAULT_PASSWORD_FILE, dataloader.DataLoader())
 
