@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 
-import runner
+import column.runner
 
 
 class SubprocessRunner(runner.Runner):
