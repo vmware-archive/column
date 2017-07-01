@@ -7,16 +7,16 @@
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/vmware/column/blob/master/LICENSE)
 
 ## Overview
-Column is a thin wrapper on top of ansible API, to serve
-as an entry point for other code when ansible is needed. As the ansible
-internal API is not officially exposed and thus changes are very likely,
-this wrapper should be used instead of touching ansible directly,
-so that any further ansible API change will only incur change in this module.
+Column is a thin wrapper on top of the Ansible API to serve
+as an entry point for other code when Ansible is needed. Because Ansible
+internal API is not officially exposed and thus changes frequently,
+this wrapper can be used instead of touching Ansible directly so that
+any further Ansible API changes will only incur change in this module.
 
-It exposes two classes:
+This module exposes two classes:
 column.APIRunner and column.SubprocessRunner
 
-Both of them implement API described in column.Runner.
+Both of these implement the API as described in column.Runner.
 Each runner exposes two public methods:
 run_playbook() and run_module().
 
