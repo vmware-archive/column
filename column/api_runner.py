@@ -5,14 +5,14 @@
 import logging
 import os
 
-from ansible import constants as a_const
-from ansible.executor import playbook_executor as pb_exec
-from ansible.executor.task_queue_manager import TaskQueueManager
+from ansible import constants
+from ansible.executor import playbook_executor
+from ansible.executor import task_queue_manager
 from ansible import inventory
 from ansible.parsing import dataloader
 from ansible.parsing.splitter import parse_kv
-from ansible.playbook.play import Play
-from ansible.vars import VariableManager
+from ansible.playbook import play
+from ansible import vars
 
 from column import callback
 from column import exceptions
@@ -66,7 +66,7 @@ class APIRunner(runner.Runner):
 
         options = self._build_opt_dict(inventory_file, **kwargs)
 
-        variable_manager = VariableManager()
+        variable_manager = vars.VariableManager()
         loader = dataloader.DataLoader()
         variable_manager.extra_vars = options.extra_vars
 
@@ -77,12 +77,13 @@ class APIRunner(runner.Runner):
         variable_manager.set_inventory(ansible_inv)
         ansible_inv.subset(options.subset)
 
-        pbex = pb_exec.PlaybookExecutor(playbooks=playbooks,
-                                        inventory=ansible_inv,
-                                        variable_manager=variable_manager,
-                                        loader=loader,
-                                        options=options,
-                                        passwords=passwords)
+        pbex = playbook_executor.PlaybookExecutor(
+            playbooks=playbooks,
+            inventory=ansible_inv,
+            variable_manager=variable_manager,
+            loader=loader,
+            options=options,
+            passwords=passwords)
 
         errors_callback = ErrorsCallback()
         self.add_callback(errors_callback)
@@ -102,7 +103,7 @@ class APIRunner(runner.Runner):
         if not module_args:
             check_raw = module_name in ('command', 'win_command', 'shell',
                                         'win_shell', 'script', 'raw')
-            module_args = parse_kv(a_const.DEFAULT_MODULE_ARGS, check_raw)
+            module_args = parse_kv(constants.DEFAULT_MODULE_ARGS, check_raw)
 
         conn_pass = None
         if 'conn_pass' in kwargs:
@@ -116,7 +117,7 @@ class APIRunner(runner.Runner):
 
         options = self._build_opt_dict(inventory_file, **kwargs)
 
-        variable_manager = VariableManager()
+        variable_manager = vars.VariableManager()
         loader = dataloader.DataLoader()
         variable_manager.extra_vars = options.extra_vars
 
@@ -127,11 +128,11 @@ class APIRunner(runner.Runner):
         ansible_inv.subset(options.subset)
 
         play_ds = self._play_ds(hosts, module_name, module_args)
-        play = Play().load(play_ds, variable_manager=variable_manager,
-                           loader=loader)
+        play_obj = play.Play().load(play_ds, variable_manager=variable_manager,
+                                    loader=loader)
 
         try:
-            tqm = TaskQueueManager(
+            tqm = task_queue_manager.TaskQueueManager(
                 inventory=ansible_inv,
                 variable_manager=variable_manager,
                 loader=loader,
@@ -145,7 +146,7 @@ class APIRunner(runner.Runner):
             # property to add callbacks
             tqm._callback_plugins.extend(self._callbacks)
 
-            result = tqm.run(play)
+            result = tqm.run(play_obj)
         finally:
             if tqm:
                 tqm.cleanup()
@@ -165,17 +166,17 @@ class APIRunner(runner.Runner):
             'listtags': None, 'syntax': None, 'module_path': None,
             'skip_tags': [], 'ssh_common_args': '',
             'sftp_extra_args': '', 'scp_extra_args': '',
-            'ssh_extra_args': '', 'become': a_const.DEFAULT_BECOME,
-            'become_user': a_const.DEFAULT_BECOME_USER,
-            'become_ask_pass': a_const.DEFAULT_BECOME_ASK_PASS,
-            'become_method': a_const.DEFAULT_BECOME_METHOD,
-            'forks': a_const.DEFAULT_FORKS,
+            'ssh_extra_args': '', 'become': constants.DEFAULT_BECOME,
+            'become_user': constants.DEFAULT_BECOME_USER,
+            'become_ask_pass': constants.DEFAULT_BECOME_ASK_PASS,
+            'become_method': constants.DEFAULT_BECOME_METHOD,
+            'forks': constants.DEFAULT_FORKS,
             'inventory': inventory_file,
-            'private_key_file': a_const.DEFAULT_PRIVATE_KEY_FILE,
-            'extra_vars': {}, 'subset': a_const.DEFAULT_SUBSET,
+            'private_key_file': constants.DEFAULT_PRIVATE_KEY_FILE,
+            'extra_vars': {}, 'subset': constants.DEFAULT_SUBSET,
             'tags': [], 'verbosity': 0,
-            'connection': a_const.DEFAULT_TRANSPORT,
-            'timeout': a_const.DEFAULT_TIMEOUT
+            'connection': constants.DEFAULT_TRANSPORT,
+            'timeout': constants.DEFAULT_TIMEOUT
         }
         args.update(self.custom_opts)
         args.update(kwargs)
@@ -195,7 +196,7 @@ class APIRunner(runner.Runner):
             gather_facts='no',
             tasks=[dict(action=dict(module=module_name, args=module_args),
                         async=0,
-                        poll=a_const.DEFAULT_POLL_INTERVAL)]
+                        poll=constants.DEFAULT_POLL_INTERVAL)]
         )
 
     @staticmethod
