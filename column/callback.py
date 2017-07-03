@@ -4,7 +4,7 @@
 
 import logging
 
-from ansible.plugins.callback import CallbackBase
+from ansible.plugins import callback
 
 
 LOG = logging.getLogger(__name__)
@@ -12,7 +12,7 @@ LOG = logging.getLogger(__name__)
 
 # This is a base class that implements ansible 2.x callbacks. It should NOT
 # be used outside. Use AnsibleCallback and implement methods declared there.
-class AnsibleCallbackBase(CallbackBase):
+class AnsibleCallbackBase(callback.CallbackBase):
 
     def __init__(self, *args, **kwargs):
         super(AnsibleCallbackBase, self).__init__(*args, **kwargs)
