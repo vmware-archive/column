@@ -9,6 +9,9 @@ install:
 # command to run tests
 script: tox
 
+after_success:
+  - codecov -e $TRAVIS_PYTHON_VERSION
+
 deploy:
   provider: pypi
   user: vmware_column
