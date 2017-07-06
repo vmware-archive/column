@@ -4,3 +4,7 @@ dist/
 *.pyc
 *.retry
 .tox/
+.coverage
+.testrepository/
+coverage.xml
+htmlcov/
