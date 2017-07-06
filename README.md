@@ -1,6 +1,7 @@
 ![Column](https://github.com/vmware/column/blob/master/column.png "Column")
 
 [![Build Status](https://travis-ci.org/vmware/column.svg?branch=master)](https://travis-ci.org/vmware/column)
+[![codecov](https://codecov.io/gh/vmware/column/branch/master/graph/badge.svg)](https://codecov.io/gh/vmware/column)
 [![Latest Version](https://img.shields.io/pypi/v/column.svg)](https://pypi.python.org/pypi/column/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/column.svg)](https://pypi.python.org/pypi/column/)
 [![Format](https://img.shields.io/pypi/format/column.svg)](https://pypi.python.org/pypi/column/)
