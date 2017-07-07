@@ -4,7 +4,6 @@
 import mock
 from mock import patch
 
-from ansible import constants
 from testtools import TestCase
 
 from column import utils
