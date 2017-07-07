@@ -15,6 +15,11 @@ class TestUtils(TestCase):
         super(TestUtils, self).setUp()
 
     @patch('__builtin__.reload')
+    def test_reload_log_path(self, mock_reload):
+        utils.reload_log_path('log_path')
+        self.assertTrue(mock_reload.called)
+
+    @patch('__builtin__.reload')
     @patch('ansible.cli.CLI.read_vault_password_file')
     @patch('ansible.parsing.vault.VaultLib')
     @patch('ansible.parsing.vault.VaultLib.decrypt')
