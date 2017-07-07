@@ -24,6 +24,11 @@ class TestExceptions(TestCase):
         self.assertEqual('Invalid type of %(name)s on parameter %(param)s',
                          e.msg)
 
+    def test_invalid_parameter_wrong_params(self):
+        e = exceptions.InvalidParameter(foo='a', bar='b')
+        self.assertEqual('Invalid type of %(name)s on parameter %(param)s',
+                         e.msg)
+
     def test_invalid_parameter_custom_msg(self):
         e = exceptions.InvalidParameter(msg='%(name)s + %(param)s = c',
                                         name='a', param='b')
