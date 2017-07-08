@@ -28,7 +28,6 @@ setup(
     url='https://github.com/vmware/column',
     license='BSD-2',
     author='VMware',
-    author_email='openstack@vmware.com',
     description='A thin wrapper on top of ansible with a stable API.',
     long_description=__doc__,
     packages=['column'],
