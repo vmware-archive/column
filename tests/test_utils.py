@@ -27,7 +27,7 @@ class TestUtils(TestCase):
     def test_get_vault_secret(self, mock_decrypt, mock_vaultlib,
                               mock_read_vault_password_file, mock_reload):
         mock_read_vault_password_file.return_value = 'my_vault_password'
-        utils.get_vault_secret('/var/lib/column', 'admin_password')
+        utils.get_vault_secret('/var/lib/column/admin_password')
         self.assertTrue(mock_read_vault_password_file.called)
         mock_vaultlib.assert_called_with('my_vault_password')
 
@@ -40,7 +40,7 @@ class TestUtils(TestCase):
     def test_update_vault_secret(self, mock_chmod, mock_encrypt, mock_vaultlib,
                                  mock_read_vault_password_file, mock_reload):
         mock_read_vault_password_file.return_value = 'my_vault_password'
-        utils.update_vault_secret('admin_password', 'pass', '/var/lib/column')
+        utils.update_vault_secret('/var/lib/column/admin_password', 'pass')
         self.assertTrue(mock_read_vault_password_file.called)
         mock_vaultlib.assert_called_with('my_vault_password')
         self.assertTrue(mock_chmod.called)

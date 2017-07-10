@@ -22,19 +22,18 @@ def reload_log_path(log_path):
     reload(display)
 
 
-def get_vault_secret(deployment_path, secret):
+def get_vault_secret(secret_file):
     reload(constants)
-    filename = '{0}/credentials/{1}'.format(deployment_path, secret)
     vault_password = cli.CLI.read_vault_password_file(
         constants.DEFAULT_VAULT_PASSWORD_FILE, dataloader.DataLoader())
 
     this_vault = vault.VaultLib(vault_password)
 
-    with open(filename) as f:
+    with open(secret_file) as f:
         return this_vault.decrypt(f.read())
 
 
-def update_vault_secret(key, value, pathdir):
+def update_vault_secret(secret_file, value):
     reload(constants)
     vault_password = cli.CLI.read_vault_password_file(
         constants.DEFAULT_VAULT_PASSWORD_FILE, dataloader.DataLoader())
@@ -42,10 +41,9 @@ def update_vault_secret(key, value, pathdir):
     if vault_password:
         this_vault = vault.VaultLib(vault_password)
         enc_data = this_vault.encrypt(value)
-        path = os.path.join(pathdir, key)
 
-        with open(path, 'wb') as f:
-            os.chmod(path, stat.S_IRUSR | stat.S_IWUSR)
+        with open(secret_file, 'wb') as f:
+            os.chmod(secret_file, stat.S_IRUSR | stat.S_IWUSR)
             f.write(enc_data)
     else:
         LOG.debug('No vault_password found')
