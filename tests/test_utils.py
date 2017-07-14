@@ -1,7 +1,6 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
 
-import mock
 from mock import patch
 
 from testtools import TestCase
@@ -36,7 +35,7 @@ class TestUtils(TestCase):
             '3933\n'
         )
         mock_read_vault_password.return_value = self.vault_password
-        self.assertEquals('vmware', utils.vault_decrypt(encrypted_value))
+        self.assertEqual('vmware', utils.vault_decrypt(encrypted_value))
         self.assertTrue(mock_read_vault_password.called)
 
     @patch('__builtin__.reload')
