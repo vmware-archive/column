@@ -19,7 +19,7 @@ Each runner expose two public methods:
 run_playbook() and run_module().
 """
 
-
+from setuptools import find_packages
 from setuptools import setup
 
 setup(
@@ -30,7 +30,7 @@ setup(
     author='VMware',
     description='A thin wrapper on top of ansible with a stable API.',
     long_description=__doc__,
-    packages=['column'],
+    packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     platforms='any',
