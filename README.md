@@ -39,6 +39,15 @@ from column import APIRunner
 api_runner = APIRunner()
 api_runner.run_module('localhost', remote_user=None)
 ```
+## To run the API
+```bash
+python column/api/run.py
+```
+```docker
+1. Update 127.0.0.1 to 0.0.0.0 in the etc/column/column.conf file
+2. docker build -t column-image .
+3. docker run -d -p 48620:48620 -v <playbook-dir>:<container-dir> column-image (the directory should contain the playbook file)
+```
 
 ## Documentation
 TBD
