@@ -15,20 +15,27 @@ from column.api.common import utils
 LOG = logging.getLogger(__name__)
 
 run_post_schema = {
-    'playbook_path': {'type': 'string', 'required': True},
-    'inventory_file': {'type': 'string'},
-    'options': {
-        'type': 'dict',
-        'schema': {
-            'become_user': {'type': 'string'},
-            'private_key_file': {'type': 'string'},
-            'tags': {'type': 'list'},
-            'skip_tags': {'type': 'list'},
-            'susbset': {'type': 'string'},
-            'connection': {'type': 'string'},
-            'become_method': {'type': 'string'}
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "playbook_path": {"type": "string"},
+        "inventory_file": {"type": "string"},
+        "options": {
+            "type": "object",
+            "properties": {
+                "become_user": {"type": "string"},
+                "private_key_file": {"type": "string"},
+                "tags": {"type": "array"},
+                "skip_tags": {"type": "array"},
+                "subset": {"type": "string"},
+                "connection": {"type": "string"},
+                "become_method": {"type": "string"}
+                },
+            "additionalProperties": False
         }
-    }
+    },
+    "required": ["playbook_path"],
+    "additionalProperties": False
 }
 
 
