@@ -23,6 +23,21 @@ class TestRun(controllers.APITest):
 
         self.assertNotEqual('RUNNING', res_dict['state'])
 
+    def test_bad_payload(self):
+        response = self.app.post('/runs', data=json.dumps(
+                dict(inventory_file='localhost,',
+                options={'connection': 'local'})),
+                content_type='application/json')
+        self.assertEqual(http_client.BAD_REQUEST, response.status_code)
+
+        pb = 'tests/fixtures/playbooks/hello_world_with_fail.yml'
+        response = self.app.post('/runs', data=json.dumps(
+                dict(playbook_path=pb,
+                inventory_file='localhost,',
+                options={'connection': 'local', 'bad_option': 'bad'})),
+                content_type='application/json')
+        self.assertEqual(http_client.BAD_REQUEST, response.status_code)
+
     def test_failed_run(self):
         pb = 'tests/fixtures/playbooks/hello_world_with_fail.yml'
         response = self.app.post('/runs', data=json.dumps(
