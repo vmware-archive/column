@@ -49,7 +49,7 @@ class RunManager(object):
         if unreachable_hosts:
             error_msg = ("{} failed because the following nodes were "
                          "unreachable: {}.\n".format(run['playbook_path'],
-                unreachable_hosts))
+                                                     unreachable_hosts))
             run['state'] = objects.State.ERROR
             run['message'] = error_msg
             self.backend_store.update_run(run_id, run)
@@ -72,9 +72,9 @@ class RunManager(object):
         inventory_file = (column_opts['inventory_file'] if 'inventory_file'
                           in column_opts else None)
         result = self.column_manager.run_playbook(
-                                         column_opts['playbook_path'],
-                                         inventory_file,
-                                         **column_opts['options'])
+            column_opts['playbook_path'],
+            inventory_file,
+            **column_opts['options'])
         self._parse_result(run['id'], result)
 
     def create_run(self, run):
@@ -82,7 +82,6 @@ class RunManager(object):
         run['state'] = objects.State.RUNNING
         run['api_runner'] = self.column_manager
         run_info = self.backend_store.create_run(run['id'], run)
-        t = threading.Thread(target=self._run_playbook,
-                             args=[run])
+        t = threading.Thread(target=self._run_playbook, args=[run])
         t.start()
         return run_info

@@ -13,4 +13,4 @@ _managers = {
 def get_manager(manager_type):
     if manager_type in _managers:
         return _managers[manager_type]
-    raise NotImplemented
+    raise NotImplementedError()
