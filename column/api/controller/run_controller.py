@@ -1,6 +1,5 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
-
 import logging
 import uuid
 
@@ -69,12 +68,10 @@ class RunList(flask_restful.Resource):
         LOG.info('Returning all ansible runs')
         return self.backend_store.list_runs()
 
+    @utils.validator(run_post_schema, http_client.BAD_REQUEST)
     def post(self):
         """Trigger a new run"""
         run_payload = request.get_json(silent=True)
-        res, errors = utils.validate_payload(run_post_schema, run_payload)
-        if not res:
-            return errors, http_client.BAD_REQUEST
         run_payload['id'] = str(uuid.uuid4())
         LOG.info('Triggering new ansible run %s', run_payload['id'])
         return self.manager.create_run(run_payload)
