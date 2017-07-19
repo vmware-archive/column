@@ -7,6 +7,9 @@ from column.callback import AnsibleCallback
 from column.runner import Runner
 from column.subprocess_runner import SubprocessRunner
 
+import ConfigParser
+
+DEFAULT_CONF_FILE = '/etc/column/column.conf'
 
 __all__ = [
     'APIRunner', 'Runner', 'SubprocessRunner', 'AnsibleCallback'
@@ -14,3 +17,6 @@ __all__ = [
 
 
 __version__ = '0.3.6'
+
+cfg = ConfigParser.ConfigParser(allow_no_value=True)
+cfg.read(DEFAULT_CONF_FILE)
