@@ -1,10 +1,13 @@
+# Copyright (c) 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: BSD-2-Clause
+
 import logging
-from six.moves import http_client
 import uuid
 
 from flask import request
 import flask_restful
 from flask_restful import abort
+from six.moves import http_client
 
 from column.api import backend
 from column.api import manager
