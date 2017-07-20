@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 import logging
+import os
 
 import flask
 import flask_restful
@@ -21,10 +22,13 @@ api.add_resource(credential_controller.Credential, '/credentials')
 if __name__ == '__main__':
     log_file = cfg.get('DEFAULT', 'log_file')
     log_level = cfg.get('DEFAULT', 'log_level')
-    logging.basicConfig(filename=log_file,
-                        format='%(asctime)s %(levelname)s '
-                               '%(name)s %(message)s',
-                        level=log_level)
+    if os.access(log_file, os.W_OK):
+        logging.basicConfig(filename=log_file,
+                            format='%(asctime)s %(levelname)s '
+                                   '%(name)s %(message)s',
+                            level=log_level)
+    else:
+        print('Unable to log to the file: %s' % log_file)
 
     server = cfg.get('DEFAULT', 'server')
     port = cfg.get('DEFAULT', 'port')
