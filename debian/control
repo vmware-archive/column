@@ -1,0 +1,37 @@
+Source: python-column
+Section: python
+Priority: optional
+Maintainer: Eric Brown <ericwb>
+Build-Depends: debhelper (>= 9),
+               dh-python,
+               dh-systemd,
+               python-six,
+               python-flask,
+               python-flask-restful,
+               ansible (>= 2.2.0),
+               python-setuptools,
+               python3-setuptools,
+Standards-Version: 3.9.6
+X-Python3-Version: >= 3.4
+
+Package: python-column
+Architecture: all
+Section: python
+Depends: python-six,
+         python-flask,
+         python-flask-restful,
+         ansible (>= 2.2.0),
+         ${misc:Depends},
+         ${python:Depends}
+Description: A stable API for Ansible
+
+Package: python3-column
+Architecture: all
+Section: python
+Depends: python-six,
+         python-flask,
+         python-flask-restful,
+         ansible (>= 2.2.0),
+         ${misc:Depends},
+         ${python3:Depends}
+Description: A stable API for Ansible

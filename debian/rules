@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+PYTHONS:=$(shell pyversions -vr)
+PYTHON3S:=$(shell py3versions -vr)
+
+%:
+	dh $@ --with=python2,python3,systemd --buildsystem=pybuild
+
+override_dh_auto_install:
+	set -e ; for pyvers in $(PYTHONS); do \
+		python$$pyvers setup.py install --install-layout=deb \
+			--root $(CURDIR)/debian/python-column; \
+	done
+	set -e ; for pyvers in $(PYTHON3S); do \
+		python$$pyvers setup.py install --install-layout=deb \
+			--root $(CURDIR)/debian/python3-column; \
+	done
+
+override_dh_install:
+	dh_install --fail-missing
+
+override_dh_auto_test:
+	echo 'skip tests'
