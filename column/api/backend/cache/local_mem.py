@@ -70,7 +70,8 @@ class RunMemoryStore(LocalMemoryStore):
     """
 
     def _get_progress(self, run):
-        return run['api_runner'].get_progress()
+        progress = run['api_runner'].get_progress()
+        return 0 if progress is None else progress
 
     def _format_response(self, run):
         # Getting progress only happens in playbook running.
