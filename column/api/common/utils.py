@@ -1,14 +1,16 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
 
-import cerberus
 from flask import request
+import jsonschema
 
 
 def validate_payload(schema, payload):
-    v = cerberus.Validator(schema)
-    res = v.validate(payload)
-    return res, v.errors
+    try:
+        jsonschema.validate(payload, schema)
+    except jsonschema.exceptions.ValidationError as e:
+        return False, e.message
+    return True, ""
 
 
 def validator(schema, status_code):
