@@ -69,12 +69,12 @@ class RunManager(object):
         column_opts = self._build_opts(run)
         progress_callback = progress.AnsibleTrackProgress()
         self.column_manager.add_callback(progress_callback)
-        inventory_file = (column_opts['inventory_file'] if 'inventory_file'
-                          in column_opts else None)
+        inventory_file = column_opts.get('inventory_file', None)
+        options = column_opts.get('options', {})
         result = self.column_manager.run_playbook(
             column_opts['playbook_path'],
             inventory_file,
-            **column_opts['options'])
+            **options)
         self._parse_result(run['id'], result)
 
     def create_run(self, run):
