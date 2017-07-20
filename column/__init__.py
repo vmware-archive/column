@@ -1,6 +1,7 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
 
+import os
 
 from column.api_runner import APIRunner
 from column.callback import AnsibleCallback
@@ -9,7 +10,7 @@ from column.subprocess_runner import SubprocessRunner
 
 import ConfigParser
 
-DEFAULT_CONF_FILE = '/etc/column/column.conf'
+DEFAULT_CONF_FILE = os.path.join(os.sep, 'etc', 'column', 'column.conf')
 
 __all__ = [
     'APIRunner', 'Runner', 'SubprocessRunner', 'AnsibleCallback'
@@ -18,5 +19,12 @@ __all__ = [
 
 __version__ = '0.3.6'
 
-cfg = ConfigParser.ConfigParser(allow_no_value=True)
+defaults = {
+    'log_file': os.path.join(os.sep, 'var', 'log', 'column.log'),
+    'log_level': 'DEBUG',
+    'server': '127.0.0.1',
+    'port': '48620'
+}
+
+cfg = ConfigParser.ConfigParser(defaults)
 cfg.read(DEFAULT_CONF_FILE)

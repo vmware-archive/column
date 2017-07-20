@@ -26,7 +26,7 @@ if __name__ == '__main__':
                                '%(name)s %(message)s',
                         level=log_level)
 
-    server = cfg.get('API', 'server')
-    port = cfg.get('API', 'port')
+    server = cfg.get('DEFAULT', 'server')
+    port = cfg.get('DEFAULT', 'port')
 
     app.run(host=server, port=port)
