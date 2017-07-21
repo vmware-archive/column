@@ -7,6 +7,7 @@ from flask import request
 import flask_restful
 from six.moves import http_client
 
+from column.api.common import utils
 from column.api import manager
 from column.api.common import utils
 
