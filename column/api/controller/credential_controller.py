@@ -11,6 +11,7 @@ from column.api.common import utils
 from column.api import manager
 from column.api.common import utils
 
+
 LOG = logging.getLogger(__name__)
 
 credential_schema = {
