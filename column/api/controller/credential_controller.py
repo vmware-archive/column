@@ -8,8 +8,19 @@ import flask_restful
 from six.moves import http_client
 
 from column.api import manager
+from column.api.common import utils
 
 LOG = logging.getLogger(__name__)
+
+credential_schema = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "value": {"type": "string"},
+    },
+    "required": ["value"],
+    "additionalProperties": False
+}
 
 
 class Credential(flask_restful.Resource):
@@ -23,12 +34,14 @@ class Credential(flask_restful.Resource):
     def __init__(self):
         self.manager = manager.get_manager('credential')
 
+    @utils.validator(credential_schema, http_client.BAD_REQUEST)
     def get(self):
         """Get a credential by file path"""
         cred_payload = request.get_json(silent=True)
         cred = self.manager.get_credential(cred_payload)
         return cred
 
+    @utils.validator(credential_schema, http_client.BAD_REQUEST)
     def put(self):
         """Update a credential by file path"""
         cred_payload = request.get_json(silent=True)
