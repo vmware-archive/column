@@ -39,10 +39,18 @@ from column import APIRunner
 api_runner = APIRunner()
 api_runner.run_module('localhost', remote_user=None)
 ```
-## To run the API
+## Running the API
 ```bash
 python column/api/run.py
 ```
+
+## Running the API in uWSGI
+```bash
+pip install uwsgi
+uwsgi --socket 0.0.0.0:48620 --protocol=http -w column.api.wsgi
+```
+
+## Running in Docker
 ```docker
 1. Update 127.0.0.1 to 0.0.0.0 in the etc/column/column.conf file
 2. docker build -t column-image .
