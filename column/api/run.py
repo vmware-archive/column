@@ -7,9 +7,9 @@ import os
 import flask
 import flask_restful
 
-from column import cfg
 from column.api.controller import credential_controller
 from column.api.controller import run_controller
+from column import cfg
 
 app = flask.Flask(__name__)
 api = flask_restful.Api(app)

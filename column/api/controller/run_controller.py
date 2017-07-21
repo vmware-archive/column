@@ -30,7 +30,7 @@ run_post_schema = {
                 "subset": {"type": "string"},
                 "connection": {"type": "string"},
                 "become_method": {"type": "string"}
-                },
+            },
             "additionalProperties": False
         }
     },
