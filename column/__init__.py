@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 
-__version__ = '0.3.6'
+__version__ = '0.3.7'
 
 defaults = {
     'log_file': os.path.join(os.sep, 'var', 'log', 'column.log'),
