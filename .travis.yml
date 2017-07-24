@@ -19,12 +19,29 @@ script: tox
 after_success:
   - codecov -e $TRAVIS_PYTHON_VERSION
 
+before_deploy:
+  - sudo apt-get install python-setuptools python-all dh-systemd python-stdeb
+  - python setup.py --command-packages=stdeb.command bdist_deb
+
 deploy:
-  provider: pypi
-  user: vmware_column
-  password:
-    secure: MAHFyKpuUb5M9nYcqhc65SmCxC1GgFDKmYcNyoqeOqQBl3XG4/uvYxQkQ2h0RRZfMJiyNGE2fKKQSeXoavMrijDGitiiZ8IXkydP8hbNsanCL/kj0E/3MGXgIi08mOUUiKVuIn3zcDsqHUQgdRbwnMvHRVNrmeTifWwp9CrXQB0364I9CnW74O/yRJ6zewwrRKBN/xm1kWX4vyAmHvae59XcA70ViSnfqEYRKGrAZn10r7875HFRpfDHIbG8KawDKsZW0yAWkoRutSRoJ0HyyeTMptdJoEhx7Egze/sI7vy+a9i1SQ1M2FNQX1BXCPaNhO+som7QYzfY0FySGWzDVrkjCU4CDPM/1YSC42XLiG0QFilmy++OnhpAX+jMyWfxkjzw2ezou+5Y7X878Ga9pjYUA+8ceQemyhauWu0UlmYgli/cqldJ+Ac21Gtq2P/Pfor4RDE4GzTo1/rMgDow5Ly+UvE0dDlmeYed/n6jQH6uXWDSyJSVNVYcEKQw33A8kBX7KyjamU1rDtcvZGgGoajiXcb7KSjrX5IhxUNChadiriaQx4zRMNv5/4kFxXYTocR0xPguBe+Mo/50Fl72/Q4oVTXrdFsYBTX7R9QZebAYfSZRTMXvcn83M4M3IBknBpnIl4BF689lLnK30egzFTUOo6HTbNbVZrSAqdCSPys=
-  on:
-    tags: true
-  distributions: sdist bdist_wheel
-  skip_upload_docs: true
+  - provider: pypi
+    user: vmware_column
+    password:
+      secure: MAHFyKpuUb5M9nYcqhc65SmCxC1GgFDKmYcNyoqeOqQBl3XG4/uvYxQkQ2h0RRZfMJiyNGE2fKKQSeXoavMrijDGitiiZ8IXkydP8hbNsanCL/kj0E/3MGXgIi08mOUUiKVuIn3zcDsqHUQgdRbwnMvHRVNrmeTifWwp9CrXQB0364I9CnW74O/yRJ6zewwrRKBN/xm1kWX4vyAmHvae59XcA70ViSnfqEYRKGrAZn10r7875HFRpfDHIbG8KawDKsZW0yAWkoRutSRoJ0HyyeTMptdJoEhx7Egze/sI7vy+a9i1SQ1M2FNQX1BXCPaNhO+som7QYzfY0FySGWzDVrkjCU4CDPM/1YSC42XLiG0QFilmy++OnhpAX+jMyWfxkjzw2ezou+5Y7X878Ga9pjYUA+8ceQemyhauWu0UlmYgli/cqldJ+Ac21Gtq2P/Pfor4RDE4GzTo1/rMgDow5Ly+UvE0dDlmeYed/n6jQH6uXWDSyJSVNVYcEKQw33A8kBX7KyjamU1rDtcvZGgGoajiXcb7KSjrX5IhxUNChadiriaQx4zRMNv5/4kFxXYTocR0xPguBe+Mo/50Fl72/Q4oVTXrdFsYBTX7R9QZebAYfSZRTMXvcn83M4M3IBknBpnIl4BF689lLnK30egzFTUOo6HTbNbVZrSAqdCSPys=
+    distributions: sdist bdist_wheel
+    skip_upload_docs: true
+    skip_cleanup: true
+    on:
+      tags: true
+
+  - provider: releases
+    api_key:
+      secure: fd2bfWnfmkgtseV5m2/caTD9kobCI2WwrcuFuaH0T+ekVgnCAvu6TbdiB6na4ENKIb9TwErdkjK28ULP0oga0ENdRUWX+m7JTMHXxYh7Op1+RaGdjA2K88XJ5qYOj+LuLc9l7re6jZJPvXAhTBsmaBYSnSI3lojY8et9IzhceQ7n7HlBrfZHkF9B6zADzg11Ee3h7nq51QuuVgMjOgOGJun0i21YA96obXi4zv2T8OzEqAti/rf3K2MPz2mw11CgOS3m67rWwM5S9EXdd/cJ1/Tn6ae1aiKs5FnUyiPoFDLmk1N3EaK5GFdBy2WvZrLJv1RE8h7RZci8/8jdB+LqEWFWBZiiK2bbGLZbzbdIWQti33v9TfUAqQ/Unh0GXKpJX5/PkGcl32pPCAW78+BijzCuDk36CTvrDgOOYP6QJkhxLk5kGMB8DT6Nzg1ic1hdwl8MN6BUUeMQGAcodLhMqSbkYTOqXIb/NsNAyvfpn3RPObWDOcIv6+JMwugUbojiiUYJ+aFrIrAocZ8I2X2zJzfafEh4crxizkwC2c6z1MW6ZYficGktexDVWXM/Xbio175hU4gwY7japNULL4FW45wh2uG+y47yTvKyREn+0rns3d1ctagp1v8W3H1EqfjHDIR4w0+Mkk5r7wRcps5APLSDiHftIo41Xe6jazuUjQU=
+    file_glob: true
+    file:
+      - dist/column*.whl
+      - deb_dist/python-column*.deb
+    skip_cleanup: true
+    on:
+      repo: vmware/column
+      tags: true
