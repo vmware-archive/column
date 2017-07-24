@@ -1,0 +1,17 @@
+[Unit]
+Description=Column
+After=network.target
+
+[Service]
+Type=simple
+
+Environment=USER=column
+Environment=ANSIBLE_LOG_PATH=/var/log/ansible.log
+Environment=ANSIBLE_CONFIG=/etc/ansible/ansible.cfg
+
+ExecStart=/bin/sh -ec "/sbin/start-stop-daemon --start --make-pidfile --pidfile /var/run/column.pid --chuid column --exec /usr/bin/uwsgi --socket 0.0.0.0:48620 --protocol=http -w column.api.wsgi >> /var/log/column.log 2>&1 "
+ExecStop=/bin/kill -TERM $MAINPID
+
+[Install]
+Alias=column
+WantedBy=multi-user.target
