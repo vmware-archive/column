@@ -20,7 +20,8 @@ after_success:
   - codecov -e $TRAVIS_PYTHON_VERSION
 
 before_deploy:
-  - sudo apt-get install python-setuptools python-all dh-systemd python-stdeb
+  - sudo apt-get install python-setuptools python-all dh-systemd
+  - sudo pip install stdeb
   - python setup.py --command-packages=stdeb.command bdist_deb
 
 deploy:
@@ -31,8 +32,6 @@ deploy:
     distributions: sdist bdist_wheel
     skip_upload_docs: true
     skip_cleanup: true
-    on:
-      tags: true
 
   - provider: releases
     api_key:
@@ -44,4 +43,3 @@ deploy:
     skip_cleanup: true
     on:
       repo: vmware/column
-      tags: true
