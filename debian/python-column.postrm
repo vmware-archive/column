@@ -4,6 +4,7 @@ set -e
 
 case "$1" in
   purge)
-    rm -f /var/log/column.log
+    rm -f /var/log/column/ansible.log
+    rm -f /var/log/column/column.log
   ;;
 esac
