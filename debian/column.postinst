@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  install)
+    ;;
+  upgrade)
+    ;;
+  configure)
+    ORIG_UMASK=`umask`
+    umask 0022
+
+    (id column && usermod -a -G sudo,adm column) || useradd -r -m -G sudo,adm column
+    mkdir -m 750 -p /var/log/column/
+    touch /var/log/column/ansible.log
+    touch /var/log/column/column.log
+    chown -R column /var/log/column/
+
+    systemctl enable column
+    umask $ORIG_UMASK
+    ;;
+  abort-upgrade)
+    echo "aport upgrade called"
+    ;;
+  *)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 1
+    ;;
+esac

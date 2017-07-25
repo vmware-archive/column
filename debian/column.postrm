@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  purge)
+    rm -f /var/log/column.log
+  ;;
+esac
