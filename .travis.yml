@@ -32,6 +32,9 @@ deploy:
     distributions: sdist bdist_wheel
     skip_upload_docs: true
     skip_cleanup: true
+    on:
+      repo: vmware/column
+      tags: true
 
   - provider: releases
     api_key:
@@ -43,3 +46,4 @@ deploy:
     skip_cleanup: true
     on:
       repo: vmware/column
+      tags: true
