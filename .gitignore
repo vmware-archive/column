@@ -9,3 +9,4 @@ dist/
 coverage.xml
 htmlcov/
 deb_dist/
+CHANGELOG.rst
