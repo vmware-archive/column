@@ -16,6 +16,8 @@ Depends: python-six,
          python-flask,
          python-flask-restful,
          ansible (>= 2.2.0),
+         uwsgi,
+         uwsgi-plugin-python,
          ${misc:Depends},
          ${python:Depends}
 Description: A stable API for Ansible
