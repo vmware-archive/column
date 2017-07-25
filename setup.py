@@ -30,7 +30,7 @@ setup(
     author='VMware',
     description='A thin wrapper on top of ansible with a stable API.',
     data_files=[('/etc/column', ['etc/column/column.conf',
-                                 'etc/column/uwsgi.conf'])],
+                                 'etc/column/uwsgi.ini'])],
     long_description=__doc__,
     packages=find_packages(),
     include_package_data=True,
