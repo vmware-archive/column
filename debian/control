@@ -7,7 +7,6 @@ Build-Depends: debhelper (>= 9),
                dh-systemd,
                python-setuptools
 Standards-Version: 3.9.6
-X-Python3-Version: >= 3.4
 
 Package: python-column
 Architecture: all
