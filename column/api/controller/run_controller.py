@@ -23,13 +23,16 @@ run_post_schema = {
         "options": {
             "type": "object",
             "properties": {
+                "become_method": {"type": "string"},
                 "become_user": {"type": "string"},
+                "connection": {"type": "string"},
+                "extra_vars": {"type": "object"},
+                "password": {"type": "string"},
                 "private_key_file": {"type": "string"},
-                "tags": {"type": "array"},
                 "skip_tags": {"type": "array"},
                 "subset": {"type": "string"},
-                "connection": {"type": "string"},
-                "become_method": {"type": "string"}
+                "tags": {"type": "array"},
+                "verbosity": {"type": "string"}
             },
             "additionalProperties": False
         }
