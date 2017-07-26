@@ -1,4 +1,4 @@
-python-column (#VERSION#) xenial; urgency=medium
+python-column (1:0.3.6) xenial; urgency=medium
 
   * Initial release.
 
