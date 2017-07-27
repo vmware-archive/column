@@ -22,9 +22,7 @@ class TestCredential(controllers.APITest):
     @patch('column.utils.vault_decrypt')
     def test_get_credential(self, mock_vault_decrypt):
         mock_vault_decrypt.return_value = 'TestPassword'
-        response = self.app.get('/credentials',
-                                data=json.dumps(dict(value='test',)),
-                                content_type='application/json')
+        response = self.app.get('/credentials?value=test')
         self.assertTrue(mock_vault_decrypt.called)
         mock_vault_decrypt.assert_called_with('test')
         self.assertEqual(http_client.OK, response.status_code)

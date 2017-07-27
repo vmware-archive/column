@@ -5,6 +5,7 @@ import logging
 
 from flask import request
 import flask_restful
+from flask_restful import reqparse
 from six.moves import http_client
 
 from column.api.common import utils
@@ -34,12 +35,17 @@ class Credential(flask_restful.Resource):
 
     def __init__(self):
         self.manager = manager.get_manager('credential')
+        self.get_parser = self._get_parser()
 
-    @utils.validator(credential_schema, http_client.BAD_REQUEST)
+    def _get_parser(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('value', type=str, required=True)
+        return parser
+
     def get(self):
         """Get a credential by file path"""
-        cred_payload = request.get_json(silent=True)
-        cred = self.manager.get_credential(cred_payload)
+        args = self.get_parser.parse_args()
+        cred = self.manager.get_credential(args)
         return cred
 
     @utils.validator(credential_schema, http_client.BAD_REQUEST)
