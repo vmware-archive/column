@@ -3,3 +3,6 @@ flask
 flask_restful
 six
 jsonschema
+# 2.0.1 breaks py27 tests
+# https://github.com/vmware/column/issues/107
+cryptography!=2.0.1
