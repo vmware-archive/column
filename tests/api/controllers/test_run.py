@@ -24,27 +24,31 @@ class TestRun(controllers.APITest):
         self.assertNotEqual('RUNNING', res_dict['state'])
 
     def test_bad_payload(self):
-        response = self.app.post('/runs', data=json.dumps(
-                dict(inventory_file='localhost,',
-                options={'connection': 'local'})),
-                content_type='application/json')
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(inventory_file='localhost,',
+                                 options={'connection': 'local'})),
+            content_type='application/json')
         self.assertEqual(http_client.BAD_REQUEST, response.status_code)
 
         pb = 'tests/fixtures/playbooks/hello_world_with_fail.yml'
-        response = self.app.post('/runs', data=json.dumps(
-                dict(playbook_path=pb,
-                inventory_file='localhost,',
-                options={'connection': 'local', 'bad_option': 'bad'})),
-                content_type='application/json')
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local',
+                                          'bad_option': 'bad'})),
+            content_type='application/json')
         self.assertEqual(http_client.BAD_REQUEST, response.status_code)
 
     def test_failed_run(self):
         pb = 'tests/fixtures/playbooks/hello_world_with_fail.yml'
-        response = self.app.post('/runs', data=json.dumps(
-                dict(playbook_path=pb,
-                inventory_file='localhost,',
-                options={'connection': 'local'})),
-                content_type='application/json')
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local'})),
+            content_type='application/json')
         res_dict = json.loads(response.data)
         self._wait_for_run_complete(res_dict['id'])
         response = self.app.get('/runs/{}'.format(res_dict['id']))
@@ -56,11 +60,12 @@ class TestRun(controllers.APITest):
         self.assertEqual(http_client.NOT_FOUND, response.status_code)
 
         pb = 'tests/fixtures/playbooks/hello_world.yml'
-        response = self.app.post('/runs', data=json.dumps(
-                dict(playbook_path=pb,
-                inventory_file='localhosti,',
-                options={'connection': 'local'})),
-                content_type='application/json')
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhosti,',
+                                 options={'connection': 'local'})),
+            content_type='application/json')
         res_dict = json.loads(response.data)
         run_id = res_dict['id']
         self.assertEqual(http_client.OK, response.status_code)
@@ -70,11 +75,12 @@ class TestRun(controllers.APITest):
 
     def test_get_run_list(self):
         pb = 'tests/fixtures/playbooks/hello_world.yml'
-        response = self.app.post('/runs', data=json.dumps(
-                dict(playbook_path=pb,
-                inventory_file='localhost,',
-                options={'connection': 'local'})),
-                content_type='application/json')
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local'})),
+            content_type='application/json')
         res_dict = json.loads(response.data)
         run_id = res_dict['id']
         self.assertEqual(http_client.OK, response.status_code)
@@ -90,11 +96,12 @@ class TestRun(controllers.APITest):
 
     def test_trigger_run(self):
         pb = 'tests/fixtures/playbooks/hello_world.yml'
-        response = self.app.post('/runs', data=json.dumps(
-                dict(playbook_path=pb,
-                inventory_file='localhost,',
-                options={'connection': 'local'})),
-                content_type='application/json')
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local'})),
+            content_type='application/json')
         res_dict = json.loads(response.data)
         self.assertEqual(http_client.OK, response.status_code)
         self.assertEqual('RUNNING', res_dict['state'])
