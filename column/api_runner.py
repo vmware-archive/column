@@ -51,6 +51,9 @@ class APIRunner(runner.Runner):
         return None
 
     def run_playbook(self, playbook_file, inventory_file=None, **kwargs):
+        if not os.path.isfile(playbook_file):
+            raise exceptions.FileNotFound(name=playbook_file)
+
         if inventory_file is None:
             inventory_file = self.inventory_file
 

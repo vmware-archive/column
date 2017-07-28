@@ -109,3 +109,17 @@ class TestRun(controllers.APITest):
         response = self.app.get('/runs/{}'.format(res_dict['id']))
         res_dict = json.loads(response.data)
         self.assertEqual('COMPLETED', res_dict['state'])
+
+    def test_invalid_filepath(self):
+        pb = 'tests/fixtures/playbooks/not-exist.yml'
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local'})),
+            content_type='application/json')
+        res_dict = json.loads(response.data)
+        time.sleep(2)
+        response = self.app.get('/runs/{}'.format(res_dict['id']))
+        res_dict = json.loads(response.data)
+        self.assertEqual('ERROR', res_dict['state'])

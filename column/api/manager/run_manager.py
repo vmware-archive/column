@@ -6,6 +6,7 @@ import logging
 import threading
 
 import column
+from column import exceptions
 from column.api import backend
 from column.api import objects
 from column.plugins.callback import progress
@@ -71,11 +72,17 @@ class RunManager(object):
         self.column_manager.add_callback(progress_callback)
         inventory_file = column_opts.get('inventory_file', None)
         options = column_opts.get('options', {})
-        result = self.column_manager.run_playbook(
-            column_opts['playbook_path'],
-            inventory_file,
-            **options)
-        self._parse_result(run['id'], result)
+        try:
+            result = self.column_manager.run_playbook(
+                column_opts['playbook_path'],
+                inventory_file,
+                **options)
+            self._parse_result(run['id'], result)
+        except exceptions.FileNotFound as e:
+            run = self.backend_store.get_run(run['id'])
+            run['state'] = objects.State.ERROR
+            run['message'] = e.message
+            self.backend_store.update_run(run['id'], run)
 
     def create_run(self, run):
         LOG.debug('Triggering a new run with %s', run)

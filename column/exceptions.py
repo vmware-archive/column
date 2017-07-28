@@ -31,3 +31,8 @@ class BaseException(Exception):
 class InvalidParameter(BaseException):
     """Invalid parameter given"""
     message = "Invalid type of %(name)s on parameter %(param)s"
+
+
+class FileNotFound(BaseException):
+    """Given file can not be found"""
+    message = "File %(name)s can not be found"
