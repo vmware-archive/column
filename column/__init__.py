@@ -1,6 +1,7 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
 
+import ConfigParser
 import os
 
 from column.api_runner import APIRunner
@@ -8,7 +9,6 @@ from column.callback import AnsibleCallback
 from column.runner import Runner
 from column.subprocess_runner import SubprocessRunner
 
-import ConfigParser
 
 DEFAULT_CONF_FILE = os.path.join(os.sep, 'etc', 'column', 'column.conf')
 

@@ -1,6 +1,7 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
 
+import ConfigParser
 import os
 
 from ansible import cli
@@ -10,7 +11,18 @@ from ansible.parsing import vault
 from ansible.utils import display
 
 
-VAULT_PASSWORD_FILE = '/var/lib/column/ansible/vault/vault_pass.txt'
+ANSIBLE_CFG = os.path.join(os.sep, 'etc', 'ansible', 'ansible.cfg')
+VAULT_PWD_FILE = os.path.join(os.sep, 'etc', 'column', 'vault_pass.txt')
+DEFAULTS = {
+    'vault_password_file': VAULT_PWD_FILE
+}
+
+
+def _get_vault_password_file():
+    if os.path.exists(ANSIBLE_CFG):
+        cfg = ConfigParser.ConfigParser(DEFAULTS)
+        cfg.read(ANSIBLE_CFG)
+        return cfg.get('defaults', 'vault_password_file')
 
 
 def reload_log_path(log_path):
@@ -21,13 +33,13 @@ def reload_log_path(log_path):
 
 def vault_decrypt(value):
     vault_password = cli.CLI.read_vault_password_file(
-        VAULT_PASSWORD_FILE, dataloader.DataLoader())
+        _get_vault_password_file(), dataloader.DataLoader())
     this_vault = vault.VaultLib(vault_password)
     return this_vault.decrypt(value)
 
 
 def vault_encrypt(value):
     vault_password = cli.CLI.read_vault_password_file(
-        VAULT_PASSWORD_FILE, dataloader.DataLoader())
+        _get_vault_password_file(), dataloader.DataLoader())
     this_vault = vault.VaultLib(vault_password)
     return this_vault.encrypt(value)
