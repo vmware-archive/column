@@ -31,7 +31,7 @@ run_post_schema = {
                 "private_key_file": {"type": ["string", "null"]},
                 "skip_tags": {"type": ["array", "null"]},
                 "subset": {"type": ["string", "null"]},
-                "tags": {"type": ["array", "null"]},
+                "tags": {"type": ["string", "array", "null"]},
                 "verbosity": {"type": ["number", "null"]}
             },
             "additionalProperties": False
