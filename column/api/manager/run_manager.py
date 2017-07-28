@@ -6,9 +6,9 @@ import logging
 import threading
 
 import column
-from column import exceptions
 from column.api import backend
 from column.api import objects
+from column import exceptions
 from column.plugins.callback import progress
 
 
