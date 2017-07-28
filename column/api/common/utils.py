@@ -1,5 +1,6 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
+import json
 
 from flask import request
 import jsonschema
@@ -16,7 +17,7 @@ def validate_payload(schema, payload):
 def validator(schema, status_code):
     def decorator(f):
         def wrapper(controller_object):
-            payload = request.get_json(silent=True)
+            payload = json.loads(request.get_data())
             res, errors = validate_payload(schema, payload)
             if not res:
                 return errors, status_code

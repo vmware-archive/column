@@ -1,6 +1,6 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-2-Clause
-
+import json
 import logging
 
 from flask import request
@@ -50,5 +50,5 @@ class Credential(flask_restful.Resource):
     @utils.validator(credential_schema, http_client.BAD_REQUEST)
     def put(self):
         """Update a credential by file path"""
-        cred_payload = request.get_json(silent=True)
+        cred_payload = json.loads(request.get_data())
         return self.manager.update_credential(cred_payload)
