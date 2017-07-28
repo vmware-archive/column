@@ -45,12 +45,10 @@ class Credential(flask_restful.Resource):
     def get(self):
         """Get a credential by file path"""
         args = self.get_parser.parse_args()
-        cred = self.manager.get_credential(args)
-        return cred
+        return self.manager.get_credential(args)
 
     @utils.validator(credential_schema, http_client.BAD_REQUEST)
     def put(self):
         """Update a credential by file path"""
         cred_payload = request.get_json(silent=True)
-        cred = self.manager.update_credential(cred_payload)
-        return cred
+        return self.manager.update_credential(cred_payload)
