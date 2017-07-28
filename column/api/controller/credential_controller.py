@@ -53,4 +53,4 @@ class Credential(flask_restful.Resource):
         """Update a credential by file path"""
         cred_payload = request.get_json(silent=True)
         cred = self.manager.update_credential(cred_payload)
-        return '', http_client.NO_CONTENT
+        return cred

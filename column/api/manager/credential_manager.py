@@ -21,4 +21,4 @@ class CredentialManager(object):
         return utils.vault_decrypt(cred['value'])
 
     def update_credential(self, cred):
-        utils.vault_encrypt(cred['value'])
+        return utils.vault_encrypt(cred['value'])
