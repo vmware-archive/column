@@ -34,5 +34,5 @@ class InvalidParameter(BaseException):
 
 
 class FileNotFound(BaseException):
-    """Given file can not be found"""
-    message = "File %(name)s can not be found"
+    """The given file cannot be found"""
+    message = "File %(name)s cannot be found"
