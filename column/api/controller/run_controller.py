@@ -19,20 +19,20 @@ run_post_schema = {
     "type": "object",
     "properties": {
         "playbook_path": {"type": "string"},
-        "inventory_file": {"type": "string"},
+        "inventory_file": {"type": ["string", "null"]},
         "options": {
             "type": "object",
             "properties": {
-                "become_method": {"type": "string"},
-                "become_user": {"type": "string"},
-                "connection": {"type": "string"},
-                "extra_vars": {"type": "object"},
-                "password": {"type": "string"},
-                "private_key_file": {"type": "string"},
-                "skip_tags": {"type": "array"},
-                "subset": {"type": "string"},
-                "tags": {"type": "array"},
-                "verbosity": {"type": "string"}
+                "become_method": {"type": ["string", "null"]},
+                "become_user": {"type": ["string", "null"]},
+                "connection": {"type": ["string", "null"]},
+                "extra_vars": {"type": ["object", "null"]},
+                "password": {"type": ["string", "null"]},
+                "private_key_file": {"type": ["string", "null"]},
+                "skip_tags": {"type": ["array", "null"]},
+                "subset": {"type": ["string", "null"]},
+                "tags": {"type": ["array", "null"]},
+                "verbosity": {"type": ["number", "null"]}
             },
             "additionalProperties": False
         }

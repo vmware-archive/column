@@ -123,3 +123,16 @@ class TestRun(controllers.APITest):
         response = self.app.get('/runs/{}'.format(res_dict['id']))
         res_dict = json.loads(response.data)
         self.assertEqual('ERROR', res_dict['state'])
+
+    def test_null_parameter_in_payload(self):
+        pb = 'tests/fixtures/playbooks/hello_world.yml'
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local',
+                                          'subset': None})),
+            content_type='application/json')
+        res_dict = json.loads(response.data)
+        self.assertEqual(http_client.OK, response.status_code)
+        self._wait_for_run_complete(res_dict['id'])
