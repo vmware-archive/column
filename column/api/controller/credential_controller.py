@@ -51,5 +51,5 @@ class Credential(flask_restful.Resource):
     @utils.validator(credential_schema, http_client.BAD_REQUEST)
     def put(self):
         """Update a credential by file path"""
-        cred_payload = json.loads(request.get_data())
+        cred_payload = utils.uni_to_str(json.loads(request.get_data()))
         return self.manager.update_credential(cred_payload)

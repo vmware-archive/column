@@ -11,8 +11,8 @@ from flask_restful import abort
 from six.moves import http_client
 
 from column.api import backend
-from column.api import manager
 from column.api.common import utils
+from column.api import manager
 
 LOG = logging.getLogger(__name__)
 
@@ -83,7 +83,7 @@ class RunList(flask_restful.Resource):
     @utils.validator(run_post_schema, http_client.BAD_REQUEST)
     def post(self):
         """Trigger a new run"""
-        run_payload = json.loads(request.get_data())
+        run_payload = utils.uni_to_str(json.loads(request.get_data()))
         run_payload['id'] = str(uuid.uuid4())
         LOG.info('Triggering new ansible run %s', run_payload['id'])
         return self.manager.create_run(run_payload)
