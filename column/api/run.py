@@ -30,7 +30,7 @@ else:
     print('Unable to log to the file: %s' % LOG_FILE)
 
 SERVER = cfg.get('DEFAULT', 'server')
-PORT = cfg.get('DEFAULT', 'port')
+PORT = cfg.getint('DEFAULT', 'port')
 
 
 if __name__ == '__main__':
