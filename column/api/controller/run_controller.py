@@ -21,7 +21,7 @@ run_post_schema = {
     "type": "object",
     "properties": {
         "playbook_path": {"type": "string"},
-        "inventory_file": {"type": ["string", "null"]},
+        "inventory_file": {"type": ["array", "string", "null"]},
         "options": {
             "type": "object",
             "properties": {
