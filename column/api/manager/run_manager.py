@@ -56,7 +56,7 @@ class RunManager(object):
             self.backend_store.update_run(run_id, run)
 
         elif failed_hosts:
-            error_msg = ("{} failed because on following nodes: {}"
+            error_msg = ("{} failed on the following nodes: {}"
                          .format(run['playbook_path'], failed_hosts))
             run['state'] = objects.State.ERROR
             run['message'] = error_msg
