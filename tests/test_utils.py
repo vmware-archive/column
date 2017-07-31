@@ -15,11 +15,6 @@ class TestUtils(TestCase):
         self.vault_password = 'h2RV4pEX2M2TXvLxYhuy'
 
     @patch('__builtin__.reload')
-    def test_reload_log_path(self, mock_reload):
-        utils.reload_log_path('log_path')
-        self.assertTrue(mock_reload.called)
-
-    @patch('__builtin__.reload')
     @patch('ansible.cli.CLI.read_vault_password_file')
     def test_vault_decrypt(self, mock_read_vault_password, mock_reload):
         encrypted_value = (

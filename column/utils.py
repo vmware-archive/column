@@ -5,10 +5,8 @@ import ConfigParser
 import os
 
 from ansible import cli
-from ansible import constants
 from ansible.parsing import dataloader
 from ansible.parsing import vault
-from ansible.utils import display
 
 
 ANSIBLE_CFG = os.path.join(os.sep, 'etc', 'ansible', 'ansible.cfg')
@@ -23,12 +21,6 @@ def _get_vault_password_file():
         cfg = ConfigParser.ConfigParser(DEFAULTS)
         cfg.read(ANSIBLE_CFG)
         return cfg.get('defaults', 'vault_password_file')
-
-
-def reload_log_path(log_path):
-    os.environ['ANSIBLE_LOG_PATH'] = log_path
-    reload(constants)
-    reload(display)
 
 
 def vault_decrypt(value):
