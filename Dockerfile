@@ -8,5 +8,7 @@ RUN apt-get update -y && apt-get install -y\
 COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt && python setup.py install
+COPY ./etc/column/column-docker.conf /etc/column/column.conf
+EXPOSE 48620
 ENTRYPOINT ["python"]
 CMD ["column/api/run.py"]

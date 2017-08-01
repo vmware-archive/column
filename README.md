@@ -52,9 +52,8 @@ uwsgi --socket 0.0.0.0:48620 --protocol=http -w column.api.wsgi
 
 ## Running in Docker
 ```docker
-1. Update 127.0.0.1 to 0.0.0.0 in the etc/column/column.conf file
-2. docker build -t column-image .
-3. docker run -d -p 48620:48620 -v <playbook-dir>:<container-dir> column-image (the directory should contain the playbook file)
+1. docker build -t column-image .
+2. docker run -d -p 48620:48620 -v <playbook-dir>:<container-dir> column-image (the directory should contain the playbook file)
 ```
 
 ## Documentation
