@@ -5,7 +5,10 @@ import copy
 import logging
 import threading
 
+from ansible.playbook import play_context
+
 import column
+from column import api
 from column.api import backend
 from column.api import objects
 from column import exceptions
@@ -67,6 +70,8 @@ class RunManager(object):
             self.backend_store.update_run(run_id, run)
 
     def _run_playbook(self, run):
+        play_context.PlayContext._attributes = copy.deepcopy(
+                api.context_attributes)
         column_opts = self._build_opts(run)
         progress_callback = progress.AnsibleTrackProgress()
         self.column_manager.add_callback(progress_callback)
