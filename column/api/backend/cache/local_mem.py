@@ -74,15 +74,19 @@ class RunMemoryStore(LocalMemoryStore):
         return 0 if progress is None else progress
 
     def _format_response(self, run):
+        run_copy = copy.deepcopy(run)
+        if 'options' in run_copy:
+            if 'become_pass' in run_copy['options']:
+                run_copy['options']['become_pass'] = '***'
+            if 'conn_pass' in run_copy['options']:
+                run_copy['options']['conn_pass'] = '***'
         # Getting progress only happens in playbook running.
         # After run is done, the api_runner attribute would
         # be deleted
-        if 'api_runner' in run:
-            run_copy = copy.deepcopy(run)
+        if 'api_runner' in run_copy:
             run_copy['progress'] = self._get_progress(run_copy)
             del run_copy['api_runner']
-            return run_copy
-        return run
+        return run_copy
 
     def get_run(self, run_id):
         run = self.get(run_id)

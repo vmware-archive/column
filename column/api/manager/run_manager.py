@@ -90,10 +90,10 @@ class RunManager(object):
             self.backend_store.update_run(run['id'], run)
 
     def create_run(self, run):
-        LOG.debug('Triggering a new run with %s', run)
         run['state'] = objects.State.RUNNING
         run['api_runner'] = self.column_manager
         run_info = self.backend_store.create_run(run['id'], run)
+        LOG.debug('Triggering a new run with %s', run_info)
         t = threading.Thread(target=self._run_playbook, args=[run])
         t.start()
         return run_info
