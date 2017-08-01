@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 from collections import deque  # noqa
-import copy
 import logging
 import threading
 
@@ -69,33 +68,11 @@ class RunMemoryStore(LocalMemoryStore):
     getting and saving run info.
     """
 
-    def _get_progress(self, run):
-        progress = run['api_runner'].get_progress()
-        return 0 if progress is None else progress
-
-    def _format_response(self, run):
-        run_copy = copy.deepcopy(run)
-        if 'options' in run_copy:
-            if 'become_pass' in run_copy['options']:
-                run_copy['options']['become_pass'] = '***'
-            if 'conn_pass' in run_copy['options']:
-                run_copy['options']['conn_pass'] = '***'
-        # Getting progress only happens in playbook running.
-        # After run is done, the api_runner attribute would
-        # be deleted
-        if 'api_runner' in run_copy:
-            run_copy['progress'] = self._get_progress(run_copy)
-            del run_copy['api_runner']
-        return run_copy
-
     def get_run(self, run_id):
-        run = self.get(run_id)
-        if run:
-            return self._format_response(run)
+        return self.get(run_id)
 
     def add_run(self, run_id, run):
-        if self.add(run_id, run):
-            return self._format_response(run)
+        return self.add(run_id, run)
 
     def update_run(self, run_id, run):
         if self.get(run_id):

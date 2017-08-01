@@ -13,6 +13,7 @@ from six.moves import http_client
 from column.api import backend
 from column.api.common import utils
 from column.api import manager
+from column.api.model import run_model
 
 LOG = logging.getLogger(__name__)
 
@@ -55,13 +56,23 @@ class Run(flask_restful.Resource):
 
     def __init__(self):
         self.backend_store = backend.get_store()
+        self.manager = manager.get_manager('run')
 
     def get(self, id):
         """Get run by id"""
         run = self.backend_store.get_run(id)
         if not run:
             return abort(404, message="Run {} doesn't exist".format(id))
-        return run
+        return run_model.format_response(run)
+
+    def delete(self, id):
+        """Delete run by id"""
+        run = self.backend_store.get_run(id)
+        if not run:
+            return abort(404, message="Run {} doesn't exist".format(id))
+        if not self.manager.delete_run(run):
+            return abort(400, message="Failed to find the task queue "
+                    "manager of run {}.".format(id))
 
 
 class RunList(flask_restful.Resource):
@@ -80,7 +91,10 @@ class RunList(flask_restful.Resource):
     def get(self):
         """Get run list"""
         LOG.info('Returning all ansible runs')
-        return self.backend_store.list_runs()
+        response = []
+        for run in self.backend_store.list_runs():
+            response.append(run_model.format_response(run))
+        return response
 
     @utils.validator(run_post_schema, http_client.BAD_REQUEST)
     def post(self):
@@ -88,4 +102,5 @@ class RunList(flask_restful.Resource):
         run_payload = utils.uni_to_str(json.loads(request.get_data()))
         run_payload['id'] = str(uuid.uuid4())
         LOG.info('Triggering new ansible run %s', run_payload['id'])
-        return self.manager.create_run(run_payload)
+        run = self.manager.create_run(run_payload)
+        return run_model.format_response(run)

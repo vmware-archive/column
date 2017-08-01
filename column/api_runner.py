@@ -43,6 +43,7 @@ class APIRunner(runner.Runner):
     def __init__(self, inventory_file=None, **kwargs):
         super(self.__class__, self).__init__(inventory_file, **kwargs)
         self._callbacks = []
+        self.tqm = None
 
     def get_progress(self):
         for c in self._callbacks:
@@ -94,7 +95,7 @@ class APIRunner(runner.Runner):
             loader=loader,
             options=options,
             passwords=passwords)
-
+        self.tqm = pbex._tqm
         errors_callback = ErrorsCallback()
         self.add_callback(errors_callback)
         # There is no public API for adding callbacks, hence we use private

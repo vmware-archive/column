@@ -4,12 +4,14 @@
 import copy
 import logging
 import threading
+import time
 
 from ansible.playbook import play_context
 
 import column
 from column import api
 from column.api import backend
+from column.api.model import run_model
 from column.api import objects
 from column import exceptions
 from column.plugins.callback import progress
@@ -92,8 +94,25 @@ class RunManager(object):
     def create_run(self, run):
         run['state'] = objects.State.RUNNING
         run['api_runner'] = self.column_manager
-        run_info = self.backend_store.create_run(run['id'], run)
-        LOG.debug('Triggering a new run with %s', run_info)
+        self.backend_store.create_run(run['id'], run)
+        LOG.debug('Triggering a new run with %s',
+                run_model.format_response(run))
         t = threading.Thread(target=self._run_playbook, args=[run])
         t.start()
-        return run_info
+        return run
+
+    def delete_run(self, run):
+        timeout = 10
+        if (run['state'] == objects.State.COMPLETED or
+                run['state'] == objects.State.ERROR or
+                run['state'] == objects.State.ABORTED):
+            return True
+        for i in xrange(timeout):
+            if run['api_runner'].tqm:
+                run['api_runner'].tqm.terminate()
+                run['state'] = objects.State.ABORTED
+                run['message'] = "Run Aborted"
+                self.backend_store.update_run(run['id'], run)
+                return True
+            time.sleep(1)
+        return False

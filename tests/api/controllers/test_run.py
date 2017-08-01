@@ -136,3 +136,21 @@ class TestRun(controllers.APITest):
         res_dict = json.loads(response.data)
         self.assertEqual(http_client.OK, response.status_code)
         self._wait_for_run_complete(res_dict['id'])
+
+    def test_delete_running_job(self):
+        pb = 'tests/fixtures/playbooks/hello_world.yml'
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local',
+                                          'subset': None})),
+            content_type='application/json')
+        res_dict = json.loads(response.data)
+        self.assertEqual(http_client.OK, response.status_code)
+        response = self.app.delete('/runs/{}'.format(res_dict['id']))
+        self.assertEqual(http_client.OK, response.status_code)
+        response = self.app.get('/runs/{}'.format(res_dict['id']))
+        res_dict = json.loads(response.data)
+        self.assertEqual('ABORTED', res_dict['state'])
+        self._wait_for_run_complete(res_dict['id'])
