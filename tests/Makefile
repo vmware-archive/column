@@ -1,5 +1,5 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
-# SPDX-License-Identifier: BSD-2-Clause
+# SPDX-License-Identifier: GPL-3.0
 
 .PHONY: tests-pep8 tests-python27 tests-coverage
 

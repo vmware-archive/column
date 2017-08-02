@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
-# SPDX-License-Identifier: BSD-2-Clause
+# SPDX-License-Identifier: GPL-3.0
 
 
 """
@@ -26,7 +26,7 @@ setup(
     name='column',
     version='0.4.9',
     url='https://github.com/vmware/column',
-    license='BSD-2',
+    license='GPL-3.0',
     author='VMware',
     description='A thin wrapper on top of ansible with a stable API.',
     data_files=[('/etc/column', ['etc/column/column.conf',
@@ -42,7 +42,7 @@ setup(
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
         'Operating System :: POSIX :: Linux',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7'

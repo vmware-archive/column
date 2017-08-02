@@ -5,7 +5,7 @@
 [![Latest Version](https://img.shields.io/pypi/v/column.svg)](https://pypi.python.org/pypi/column/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/column.svg)](https://pypi.python.org/pypi/column/)
 [![Format](https://img.shields.io/pypi/format/column.svg)](https://pypi.python.org/pypi/column/)
-[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/vmware/column/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/vmware/column/blob/master/LICENSE)
 
 ## Overview
 Column is a thin wrapper on top of the Ansible API to serve
