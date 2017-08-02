@@ -60,7 +60,7 @@ uwsgi --socket 0.0.0.0:48620 --protocol=http -w column.api.wsgi
 TBD
 
 ## Releases & Major Branches
-Column is still in alpha state, currently at version 0.4.9.
+Column is still in alpha state, currently at version 0.5.0.
 
 ## Contributing
 

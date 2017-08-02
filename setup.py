@@ -24,7 +24,7 @@ from setuptools import setup
 
 setup(
     name='column',
-    version='0.4.9',
+    version='0.5.0',
     url='https://github.com/vmware/column',
     license='GPL-3.0',
     author='VMware',
