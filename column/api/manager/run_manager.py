@@ -73,7 +73,7 @@ class RunManager(object):
 
     def _run_playbook(self, run):
         play_context.PlayContext._attributes = copy.deepcopy(
-                api.context_attributes)
+            api.context_attributes)
         column_opts = self._build_opts(run)
         progress_callback = progress.AnsibleTrackProgress()
         self.column_manager.add_callback(progress_callback)
@@ -96,7 +96,7 @@ class RunManager(object):
         run['api_runner'] = self.column_manager
         self.backend_store.create_run(run['id'], run)
         LOG.debug('Triggering a new run with %s',
-                run_model.format_response(run))
+                  run_model.format_response(run))
         t = threading.Thread(target=self._run_playbook, args=[run])
         t.start()
         return run

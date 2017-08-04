@@ -72,7 +72,7 @@ class Run(flask_restful.Resource):
             return abort(404, message="Run {} doesn't exist".format(id))
         if not self.manager.delete_run(run):
             return abort(400, message="Failed to find the task queue "
-                    "manager of run {}.".format(id))
+                                      "manager of run {}.".format(id))
 
 
 class RunList(flask_restful.Resource):
