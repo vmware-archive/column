@@ -7,7 +7,10 @@ RUN apt-get update -y && apt-get install -y\
     libffi-dev
 COPY . /app
 WORKDIR /app
-RUN pip install -r requirements.txt && python setup.py install
+RUN pip install -r requirements.txt \
+&& python setup.py install \
+&& mkdir -p /var/log/column \
+&& touch /var/log/column/column.log
 COPY ./etc/column/column-docker.conf /etc/column/column.conf
 EXPOSE 48620
 ENTRYPOINT ["python"]
