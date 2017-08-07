@@ -56,20 +56,22 @@ class RunManager(object):
             error_msg = ("{} failed because the following nodes were "
                          "unreachable: {}.\n".format(run['playbook_path'],
                                                      unreachable_hosts))
-            run['state'] = objects.State.ERROR
-            run['message'] = error_msg
-            self.backend_store.update_run(run_id, run)
+            self._update_run(run['id'], objects.State.ERROR, error_msg)
 
         elif failed_hosts:
             error_msg = ("{} failed on the following nodes: {}"
                          .format(run['playbook_path'], failed_hosts))
-            run['state'] = objects.State.ERROR
-            run['message'] = error_msg
-            self.backend_store.update_run(run_id, run)
+            self._update_run(run['id'], objects.State.ERROR, error_msg)
 
         else:
-            run['state'] = objects.State.COMPLETED
-            self.backend_store.update_run(run_id, run)
+            self._update_run(run['id'], objects.State.COMPLETED)
+
+    def _update_run(self, id, state, message=None):
+        run = self.backend_store.get_run(id)
+        run['state'] = state
+        if message:
+            run['message'] = message
+        self.backend_store.update_run(id, run)
 
     def _run_playbook(self, run):
         play_context.PlayContext._attributes = copy.deepcopy(
@@ -86,10 +88,9 @@ class RunManager(object):
                 **options)
             self._parse_result(run['id'], result)
         except exceptions.FileNotFound as e:
-            run = self.backend_store.get_run(run['id'])
-            run['state'] = objects.State.ERROR
-            run['message'] = e.message
-            self.backend_store.update_run(run['id'], run)
+            self._update_run(run['id'], objects.State.ERROR, e.message)
+        except exceptions.InvalidParameter as e:
+            self._update_run(run['id'], objects.State.ERROR, e.message)
 
     def create_run(self, run):
         run['state'] = objects.State.RUNNING
