@@ -138,7 +138,7 @@ class TestRun(controllers.APITest):
         self._wait_for_run_complete(res_dict['id'])
 
     def test_delete_running_job(self):
-        pb = 'tests/fixtures/playbooks/hello_world.yml'
+        pb = 'tests/fixtures/playbooks/hello_world_with_sleep.yml'
         response = self.app.post(
             '/runs',
             data=json.dumps(dict(playbook_path=pb,

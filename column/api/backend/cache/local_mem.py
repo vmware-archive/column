@@ -54,7 +54,7 @@ class LocalMemoryStore(store.Store):
 
     def _evict(self):
         del_key = self._key_queue.popleft()
-        self._del[del_key]
+        self._del(del_key)
         return del_key
 
     def _keys(self):

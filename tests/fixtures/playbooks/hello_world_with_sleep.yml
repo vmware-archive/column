@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - shell: sleep 10
+- hosts: all
+  tasks:
+    - shell: echo "hello world"
