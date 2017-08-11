@@ -37,7 +37,8 @@ run_post_schema = {
                 "skip_tags": {"type": ["array", "null"]},
                 "subset": {"type": ["string", "null"]},
                 "tags": {"type": ["string", "array", "null"]},
-                "verbosity": {"type": ["number", "null"]}
+                "verbosity": {"type": ["number", "null"]},
+                "ssh_common_args": {"type": ["string", "null"]},
             },
             "additionalProperties": False
         }
