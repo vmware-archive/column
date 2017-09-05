@@ -1,12 +1,12 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: GPL-3.0
 
-import ConfigParser
 import os
 
 from ansible import cli
 from ansible.parsing import dataloader
 from ansible.parsing import vault
+from six.moves import configparser
 
 
 ANSIBLE_CFG = os.path.join(os.sep, 'etc', 'ansible', 'ansible.cfg')
@@ -18,7 +18,7 @@ DEFAULTS = {
 
 def _get_vault_password_file():
     if os.path.exists(ANSIBLE_CFG):
-        cfg = ConfigParser.ConfigParser(DEFAULTS)
+        cfg = configparser.ConfigParser(DEFAULTS)
         cfg.read(ANSIBLE_CFG)
         return cfg.get('defaults', 'vault_password_file')
 

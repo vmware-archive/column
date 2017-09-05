@@ -1,8 +1,9 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: GPL-3.0
 
-import ConfigParser
 import os
+
+from six.moves import configparser
 
 from column.api_runner import APIRunner
 from column.callback import AnsibleCallback
@@ -26,5 +27,5 @@ defaults = {
     'port': '48620'
 }
 
-cfg = ConfigParser.ConfigParser(defaults)
+cfg = configparser.ConfigParser(defaults)
 cfg.read(DEFAULT_CONF_FILE)
