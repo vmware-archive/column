@@ -19,11 +19,6 @@ script: tox
 after_success:
   - codecov -e $TRAVIS_PYTHON_VERSION
 
-before_deploy:
-  - sudo apt-get install python-setuptools python-all debhelper fakeroot
-  - sudo pip install stdeb
-  - export PYTHONPATH=/usr/local/lib/python2.7/dist-packages; python setup.py --command-packages=stdeb.command bdist_deb
-
 deploy:
   - provider: pypi
     user: vmware_column
@@ -42,7 +37,6 @@ deploy:
     file_glob: true
     file:
       - dist/column*.whl
-      - deb_dist/python-column*.deb
     skip_cleanup: true
     on:
       repo: vmware/column
