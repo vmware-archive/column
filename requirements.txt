@@ -6,3 +6,4 @@ jsonschema
 # 2.0.1 breaks py27 tests
 # https://github.com/vmware/column/issues/107
 cryptography!=2.0.1
+pyOpenSSL>=16.2.0
