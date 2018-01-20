@@ -9,10 +9,10 @@
 
 ## Overview
 Column is a thin wrapper on top of the Ansible API to serve
-as an entry point for other code when Ansible is needed. Because Ansible
-internal API is not officially exposed and thus changes frequently,
-this wrapper can be used instead of touching Ansible directly so that
-any further Ansible API changes will only incur change in this module.
+as an entry point for other code when Ansible is needed. Because the Ansible
+internal API is not officially exposed and changes frequently, this wrapper
+can be used instead of touching Ansible directly so that any further Ansible
+API changes will only incur change in this module.
 
 This module exposes two classes:
 column.APIRunner and column.SubprocessRunner
