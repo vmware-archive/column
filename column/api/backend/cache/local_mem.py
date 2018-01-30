@@ -19,7 +19,8 @@ LOG = logging.getLogger(__name__)
 class LocalMemoryStore(store.Store):
     """In memory store base class
 
-    This class inherits basic store class to implment a local memory backend.
+    This class inherits the basic store class to implement a local memory
+    backend.
 
     Attributes:
         _store (dict): dict for saving info

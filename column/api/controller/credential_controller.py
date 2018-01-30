@@ -15,7 +15,7 @@ from column.api import manager
 
 LOG = logging.getLogger(__name__)
 
-credential_schema = {
+CREDENTIAL_SCHEMA = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -48,7 +48,7 @@ class Credential(flask_restful.Resource):
         args = self.get_parser.parse_args()
         return self.manager.get_credential(args)
 
-    @utils.validator(credential_schema, http_client.BAD_REQUEST)
+    @utils.validator(CREDENTIAL_SCHEMA, http_client.BAD_REQUEST)
     def put(self):
         """Update a credential by file path"""
         cred_payload = utils.uni_to_str(json.loads(request.get_data()))

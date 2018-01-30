@@ -18,7 +18,7 @@ class Runner(object):
             inventory_file, as a remote_user. All other ansible parameters
             are passed using kwargs. see ansible-playbook --help or
             lib/ansible/constants.py in ansible source code for details
-            of what parameters can be specified.
+            on what parameters can be specified.
 
 
         :param playbook_file: str: absolute path to playbook file
@@ -35,7 +35,7 @@ class Runner(object):
             All other ansible parameters
             are passed using kwargs. see ansible --help or
             lib/ansible/constants.py in ansible source code for details
-            of what parameters can be specified.
+            on what parameters can be specified.
 
 
         :param module_name: str: ansible module to execute

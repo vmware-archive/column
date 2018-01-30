@@ -33,7 +33,7 @@ class ErrorsCallback(callback.AnsibleCallback):
 
     def run_on_runner_failed(self, result, ignore_errors=False):
         if ignore_errors:
-            #  We only collect not ignored errors
+            # We only collect non-ignored errors
             return
         self.failed_results.append(result)
 
@@ -98,7 +98,7 @@ class APIRunner(runner.Runner):
         self.tqm = pbex._tqm
         errors_callback = ErrorsCallback()
         self.add_callback(errors_callback)
-        # There is no public API for adding callbacks, hence we use private
+        # There is no public API for adding callbacks, hence we use a private
         # property to add callbacks
         pbex._tqm._callback_plugins.extend(self._callbacks)
 
@@ -153,8 +153,8 @@ class APIRunner(runner.Runner):
                 run_additional_callbacks=True
             )
 
-            # There is no public API for adding callbacks, hence we use private
-            # property to add callbacks
+            # There is no public API for adding callbacks, hence we use a
+            # private property to add callbacks
             tqm._callback_plugins.extend(self._callbacks)
 
             result = tqm.run(play_obj)

@@ -17,7 +17,7 @@ from column.api.model import run_model
 
 LOG = logging.getLogger(__name__)
 
-run_post_schema = {
+RUN_POST_SCHEMA = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -97,7 +97,7 @@ class RunList(flask_restful.Resource):
             response.append(run_model.format_response(run))
         return response
 
-    @utils.validator(run_post_schema, http_client.BAD_REQUEST)
+    @utils.validator(RUN_POST_SCHEMA, http_client.BAD_REQUEST)
     def post(self):
         """Trigger a new run"""
         run_payload = utils.uni_to_str(json.loads(request.get_data()))

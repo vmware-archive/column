@@ -6,14 +6,14 @@ from collections import defaultdict
 
 def get_progress(run):
     # TODO(ushergod) need to create backend model class and
-    # put this fucntion into the model class
+    # put this function into the model class
     progress = run['api_runner'].get_progress()
     return 0 if progress is None else progress
 
 
 def format_response(run):
     # TODO(ushergod) need to create backend model class and
-    # put this fucntion into the model class
+    # put this function into the model class
     private_attr = ['become_pass', 'conn_pass', 'private_key_file']
     response = defaultdict(dict)
     for item, value in run.iteritems():

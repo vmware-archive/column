@@ -12,7 +12,7 @@ class Store(object):
     """Backend store base class
 
     This is a basic store implementation which is thread safe. Local memory
-    store should inherit this class.
+    store should inherit from this class.
 
     Attributes:
         name (str): store name
