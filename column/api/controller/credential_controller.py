@@ -6,6 +6,7 @@ import logging
 
 from flask import request
 import flask_restful
+from flask_restful import abort
 from flask_restful import reqparse
 from six.moves import http_client
 
@@ -46,7 +47,11 @@ class Credential(flask_restful.Resource):
     def get(self):
         """Get a credential by file path"""
         args = self.get_parser.parse_args()
-        return self.manager.get_credential(args)
+        cred = self.manager.get_credential(args)
+        if cred is None:
+            return abort(400, message='Unable to decrypt credential value.')
+        else:
+            return cred
 
     @utils.validator(CREDENTIAL_SCHEMA, http_client.BAD_REQUEST)
     def put(self):

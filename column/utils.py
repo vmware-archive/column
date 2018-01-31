@@ -4,6 +4,7 @@
 import os
 
 from ansible import cli
+from ansible import errors
 from ansible.parsing import dataloader
 from ansible.parsing import vault
 from six.moves import configparser
@@ -27,7 +28,10 @@ def vault_decrypt(value):
     vault_password = cli.CLI.read_vault_password_file(
         _get_vault_password_file(), dataloader.DataLoader())
     this_vault = vault.VaultLib(vault_password)
-    return this_vault.decrypt(value)
+    try:
+        return this_vault.decrypt(value)
+    except errors.AnsibleError:
+        return None
 
 
 def vault_encrypt(value):
