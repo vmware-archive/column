@@ -3,6 +3,7 @@
 
 import logging
 import os
+import six
 
 from ansible import constants
 from ansible.executor import playbook_executor
@@ -79,6 +80,8 @@ class APIRunner(runner.Runner):
 
         variable_manager = vars.VariableManager()
         loader = dataloader.DataLoader()
+        options.extra_vars = {six.u(key): six.u(value)
+                              for key, value in options.extra_vars.items()}
         variable_manager.extra_vars = options.extra_vars
 
         ansible_inv = inventory.Inventory(loader=loader,
