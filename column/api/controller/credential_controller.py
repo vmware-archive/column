@@ -49,7 +49,8 @@ class Credential(flask_restful.Resource):
         args = self.get_parser.parse_args()
         cred = self.manager.get_credential(args)
         if cred is None:
-            return abort(400, message='Unable to decrypt credential value.')
+            return abort(http_client.BAD_REQUEST,
+                         message='Unable to decrypt credential value.')
         else:
             return cred
 

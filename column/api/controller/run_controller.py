@@ -63,17 +63,21 @@ class Run(flask_restful.Resource):
         """Get run by id"""
         run = self.backend_store.get_run(id)
         if not run:
-            return abort(404, message="Run {} doesn't exist".format(id))
+            return abort(http_client.NOT_FOUND,
+                         message="Run {} doesn't exist".format(id))
         return run_model.format_response(run)
 
     def delete(self, id):
         """Delete run by id"""
         run = self.backend_store.get_run(id)
         if not run:
-            return abort(404, message="Run {} doesn't exist".format(id))
+            return abort(http_client.NOT_FOUND,
+                         message="Run {} doesn't exist".format(id))
         if not self.manager.delete_run(run):
-            return abort(400, message="Failed to find the task queue "
-                                      "manager of run {}.".format(id))
+            return abort(http_client.BAD_REQUEST,
+                         message="Failed to find the task queue "
+                                 "manager of run {}.".format(id))
+        return '', http_client.NO_CONTENT
 
 
 class RunList(flask_restful.Resource):
@@ -104,4 +108,4 @@ class RunList(flask_restful.Resource):
         run_payload['id'] = str(uuid.uuid4())
         LOG.info('Triggering new ansible run %s', run_payload['id'])
         run = self.manager.create_run(run_payload)
-        return run_model.format_response(run)
+        return run_model.format_response(run), http_client.CREATED

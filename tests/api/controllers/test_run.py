@@ -68,7 +68,7 @@ class TestRun(controllers.APITest):
             content_type='application/json')
         res_dict = json.loads(response.data)
         run_id = res_dict['id']
-        self.assertEqual(http_client.OK, response.status_code)
+        self.assertEqual(http_client.CREATED, response.status_code)
         response = self.app.get('/runs/{}'.format(run_id))
         self.assertEqual(http_client.OK, response.status_code)
         self._wait_for_run_complete(run_id)
@@ -83,7 +83,7 @@ class TestRun(controllers.APITest):
             content_type='application/json')
         res_dict = json.loads(response.data)
         run_id = res_dict['id']
-        self.assertEqual(http_client.OK, response.status_code)
+        self.assertEqual(http_client.CREATED, response.status_code)
         response = self.app.get('/runs')
         res_list = json.loads(response.data)
         found = False
@@ -103,7 +103,7 @@ class TestRun(controllers.APITest):
                                  options={'connection': 'local'})),
             content_type='application/json')
         res_dict = json.loads(response.data)
-        self.assertEqual(http_client.OK, response.status_code)
+        self.assertEqual(http_client.CREATED, response.status_code)
         self.assertEqual('RUNNING', res_dict['state'])
         self._wait_for_run_complete(res_dict['id'])
         response = self.app.get('/runs/{}'.format(res_dict['id']))
@@ -134,7 +134,7 @@ class TestRun(controllers.APITest):
                                           'subset': None})),
             content_type='application/json')
         res_dict = json.loads(response.data)
-        self.assertEqual(http_client.OK, response.status_code)
+        self.assertEqual(http_client.CREATED, response.status_code)
         self._wait_for_run_complete(res_dict['id'])
 
     def test_delete_running_job(self):
@@ -147,9 +147,9 @@ class TestRun(controllers.APITest):
                                           'subset': None})),
             content_type='application/json')
         res_dict = json.loads(response.data)
-        self.assertEqual(http_client.OK, response.status_code)
+        self.assertEqual(http_client.CREATED, response.status_code)
         response = self.app.delete('/runs/{}'.format(res_dict['id']))
-        self.assertEqual(http_client.OK, response.status_code)
+        self.assertEqual(http_client.NO_CONTENT, response.status_code)
         response = self.app.get('/runs/{}'.format(res_dict['id']))
         res_dict = json.loads(response.data)
         self.assertEqual('ABORTED', res_dict['state'])
