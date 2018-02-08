@@ -18,7 +18,11 @@ def validate_payload(schema, payload):
 def validator(schema, status_code):
     def decorator(f):
         def wrapper(controller_object):
-            payload = uni_to_str(json.loads(request.get_data()))
+            try:
+                data = json.loads(request.get_data())
+            except ValueError:
+                data = request.get_data()
+            payload = uni_to_str(data)
             res, errors = validate_payload(schema, payload)
             if not res:
                 return errors, status_code
