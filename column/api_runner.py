@@ -106,7 +106,7 @@ class APIRunner(runner.Runner):
         # property to add callbacks
         pbex._tqm._callback_plugins.extend(self._callbacks)
         try:
-            status = pbex.run()
+            pbex.run()
         except errors.AnsibleParserError as e:
             raise exceptions.ParsePlaybookError(msg=str(e))
         stats = pbex._tqm._stats

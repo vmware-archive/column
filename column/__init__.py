@@ -20,12 +20,12 @@ __all__ = [
 
 __version__ = '0.5.2'
 
-defaults = {
+DEFAULTS = {
     'log_file': os.path.join(os.sep, 'var', 'log', 'column.log'),
     'log_level': 'DEBUG',
     'server': '127.0.0.1',
     'port': '48620'
 }
 
-cfg = configparser.ConfigParser(defaults)
+cfg = configparser.ConfigParser(DEFAULTS)
 cfg.read(DEFAULT_CONF_FILE)

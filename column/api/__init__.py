@@ -6,4 +6,4 @@ import copy
 from ansible.playbook import play_context
 
 
-context_attributes = copy.deepcopy(play_context.PlayContext._attributes)
+CONTEXT_ATTRIBUTES = copy.deepcopy(play_context.PlayContext._attributes)
