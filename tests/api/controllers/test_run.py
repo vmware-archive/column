@@ -23,7 +23,17 @@ class TestRun(controllers.APITest):
 
         self.assertNotEqual('RUNNING', res_dict['state'])
 
-    def test_bad_payload(self):
+    def test_api(self):
+        self._test_bad_payload()
+        self._test_failed_run()
+        self._test_get_run_by_id()
+        self._test_get_run_list()
+        self._test_trigger_run()
+        self._test_invalid_filepath()
+        self._test_null_parameter_in_payload()
+        self._test_delete_running_job()
+
+    def _test_bad_payload(self):
         response = self.app.post(
             '/runs',
             data=json.dumps(dict(inventory_file='localhost,',
@@ -41,7 +51,7 @@ class TestRun(controllers.APITest):
             content_type='application/json')
         self.assertEqual(http_client.BAD_REQUEST, response.status_code)
 
-    def test_failed_run(self):
+    def _test_failed_run(self):
         pb = 'tests/fixtures/playbooks/hello_world_with_fail.yml'
         response = self.app.post(
             '/runs',
@@ -55,7 +65,7 @@ class TestRun(controllers.APITest):
         res_dict = json.loads(response.data)
         self.assertEqual('ERROR', res_dict['state'])
 
-    def test_get_run_by_id(self):
+    def _test_get_run_by_id(self):
         response = self.app.get('/runs/1234')
         self.assertEqual(http_client.NOT_FOUND, response.status_code)
 
@@ -73,7 +83,7 @@ class TestRun(controllers.APITest):
         self.assertEqual(http_client.OK, response.status_code)
         self._wait_for_run_complete(run_id)
 
-    def test_get_run_list(self):
+    def _test_get_run_list(self):
         pb = 'tests/fixtures/playbooks/hello_world.yml'
         response = self.app.post(
             '/runs',
@@ -94,7 +104,7 @@ class TestRun(controllers.APITest):
         self.assertEqual(True, found)
         self._wait_for_run_complete(run_id)
 
-    def test_trigger_run(self):
+    def _test_trigger_run(self):
         pb = 'tests/fixtures/playbooks/hello_world.yml'
         response = self.app.post(
             '/runs',
@@ -110,7 +120,7 @@ class TestRun(controllers.APITest):
         res_dict = json.loads(response.data)
         self.assertEqual('COMPLETED', res_dict['state'])
 
-    def test_invalid_filepath(self):
+    def _test_invalid_filepath(self):
         pb = 'tests/fixtures/playbooks/not-exist.yml'
         response = self.app.post(
             '/runs',
@@ -124,7 +134,7 @@ class TestRun(controllers.APITest):
         res_dict = json.loads(response.data)
         self.assertEqual('ERROR', res_dict['state'])
 
-    def test_null_parameter_in_payload(self):
+    def _test_null_parameter_in_payload(self):
         pb = 'tests/fixtures/playbooks/hello_world.yml'
         response = self.app.post(
             '/runs',
@@ -137,7 +147,7 @@ class TestRun(controllers.APITest):
         self.assertEqual(http_client.CREATED, response.status_code)
         self._wait_for_run_complete(res_dict['id'])
 
-    def test_delete_running_job(self):
+    def _test_delete_running_job(self):
         pb = 'tests/fixtures/playbooks/hello_world_with_sleep.yml'
         response = self.app.post(
             '/runs',
