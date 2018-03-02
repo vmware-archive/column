@@ -7,6 +7,7 @@ from ansible import cli
 from ansible import errors
 from ansible.parsing import dataloader
 from ansible.parsing import vault
+from ansible import release
 from six.moves import configparser
 
 
@@ -39,3 +40,7 @@ def vault_encrypt(value):
         _get_vault_password_file(), dataloader.DataLoader())
     this_vault = vault.VaultLib(vault_password)
     return this_vault.encrypt(value)
+
+
+def ansible_version():
+    return release.__version__
