@@ -32,6 +32,21 @@ class TestRun(controllers.APITest):
         self._test_invalid_filepath()
         self._test_null_parameter_in_payload()
         self._test_delete_running_job()
+        self._test_invalid_playbook()
+
+    def _test_invalid_playbook(self):
+        pb = 'tests/fixtures/playbooks/hello_world_invalid_syntax.yml'
+        response = self.app.post(
+            '/runs',
+            data=json.dumps(dict(playbook_path=pb,
+                                 inventory_file='localhost,',
+                                 options={'connection': 'local'})),
+            content_type='application/json')
+        res_dict = json.loads(response.data)
+        self._wait_for_run_complete(res_dict['id'])
+        response = self.app.get('/runs/{}'.format(res_dict['id']))
+        res_dict = json.loads(response.data)
+        self.assertEqual('ERROR', res_dict['state'])
 
     def _test_bad_payload(self):
         response = self.app.post(

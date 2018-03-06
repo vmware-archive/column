@@ -36,3 +36,8 @@ class InvalidParameter(BaseException):
 class FileNotFound(BaseException):
     """The given file cannot be found"""
     message = "File %(name)s cannot be found"
+
+
+class ParsePlaybookError(BaseException):
+    """Ansible failed to parse the playbook"""
+    pass

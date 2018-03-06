@@ -1,0 +1,4 @@
+---
+- hosts: all
+  tasks_invalid_syntax:
+    - shell: echo "hello world"

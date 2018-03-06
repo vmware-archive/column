@@ -91,6 +91,9 @@ class RunManager(object):
             self._update_run(run['id'], objects.State.ERROR, e.message)
         except exceptions.InvalidParameter as e:
             self._update_run(run['id'], objects.State.ERROR, e.message)
+        except exceptions.ParsePlaybookError as e:
+            self._update_run(run['id'], objects.State.ERROR, e.message)
+        test = run
 
     def create_run(self, run):
         run['state'] = objects.State.RUNNING

@@ -6,6 +6,7 @@ import os
 import six
 
 from ansible import constants
+from ansible import errors
 from ansible.executor import playbook_executor
 from ansible.executor import task_queue_manager
 from ansible import inventory
@@ -104,8 +105,10 @@ class APIRunner(runner.Runner):
         # There is no public API for adding callbacks, hence we use a private
         # property to add callbacks
         pbex._tqm._callback_plugins.extend(self._callbacks)
-
-        status = pbex.run()
+        try:
+            status = pbex.run()
+        except errors.AnsibleParserError as e:
+            raise exceptions.ParsePlaybookError(msg=str(e))
         stats = pbex._tqm._stats
         failed_results = errors_callback.failed_results
         result = self._process_stats(stats, failed_results)
