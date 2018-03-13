@@ -1,6 +1,7 @@
 # Copyright (c) 2017 VMware, Inc. All Rights Reserved.
 # SPDX-License-Identifier: GPL-3.0
 
+import json
 import logging
 import os
 import six
@@ -81,9 +82,11 @@ class APIRunner(runner.Runner):
 
         variable_manager = vars.VariableManager()
         loader = dataloader.DataLoader()
-        options.extra_vars = {six.u(key): six.u(value)
-                              for key, value in options.extra_vars.items()}
-        variable_manager.extra_vars = options.extra_vars
+        if six.PY2:
+            variable_manager.extra_vars = json.loads(
+                json.dumps(options.extra_vars))
+        else:
+            variable_manager.extra_vars = options.extra_vars
 
         ansible_inv = inventory.Inventory(loader=loader,
                                           variable_manager=variable_manager,
