@@ -3,9 +3,6 @@
 
 import os
 
-from ansible import cli
-from ansible import errors
-from ansible.parsing import dataloader
 from ansible.parsing import vault
 from ansible import release
 from six.moves import configparser
@@ -18,27 +15,23 @@ DEFAULTS = {
 }
 
 
-def _get_vault_password_file():
+def _read_vault_password_file():
     if os.path.exists(ANSIBLE_CFG):
         cfg = configparser.ConfigParser(DEFAULTS)
         cfg.read(ANSIBLE_CFG)
-        return cfg.get('defaults', 'vault_password_file')
+        password_file = cfg.get('defaults', 'vault_password_file')
+
+        with open(password_file, "rb") as f:
+            return f.read().strip()
 
 
 def vault_decrypt(value):
-    vault_password = cli.CLI.read_vault_password_file(
-        _get_vault_password_file(), dataloader.DataLoader())
-    this_vault = vault.VaultLib(vault_password)
-    try:
-        return this_vault.decrypt(value)
-    except errors.AnsibleError:
-        return None
+    this_vault = vault.VaultLib(_read_vault_password_file())
+    return this_vault.decrypt(value)
 
 
 def vault_encrypt(value):
-    vault_password = cli.CLI.read_vault_password_file(
-        _get_vault_password_file(), dataloader.DataLoader())
-    this_vault = vault.VaultLib(vault_password)
+    this_vault = vault.VaultLib(_read_vault_password_file())
     return this_vault.encrypt(value)
 
 

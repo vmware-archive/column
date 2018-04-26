@@ -15,8 +15,8 @@ class TestUtils(TestCase):
         self.vault_password = 'h2RV4pEX2M2TXvLxYhuy'
 
     @patch('__builtin__.reload')
-    @patch('ansible.cli.CLI.read_vault_password_file')
-    def test_vault_decrypt(self, mock_read_vault_password, mock_reload):
+    @patch('column.utils._read_vault_password_file')
+    def test_vault_decrypt(self, mock_read_vault_password):
         encrypted_value = (
             '$ANSIBLE_VAULT;1.1;AES256\n'
             '3139663233656537383737613633343638313934'
@@ -34,7 +34,7 @@ class TestUtils(TestCase):
         self.assertTrue(mock_read_vault_password.called)
 
     @patch('__builtin__.reload')
-    @patch('ansible.cli.CLI.read_vault_password_file')
+    @patch('column.utils._read_vault_password_file')
     def test_vault_encrypt(self, mock_read_vault_password, mock_reload):
         mock_read_vault_password.return_value = self.vault_password
         encrypted = utils.vault_encrypt('vmware')
