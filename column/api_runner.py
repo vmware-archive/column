@@ -4,7 +4,6 @@
 import json
 import logging
 import os
-import six
 
 from ansible import constants
 from ansible import errors
@@ -15,6 +14,7 @@ from ansible.parsing import dataloader
 from ansible.parsing.splitter import parse_kv
 from ansible.playbook import play
 from ansible import vars
+import six
 
 from column import callback
 from column import exceptions
@@ -55,7 +55,7 @@ class APIRunner(runner.Runner):
         return None
 
     def run_playbook(self, playbook_file, inventory_file=None, **kwargs):
-        reload(constants)
+        six.moves.reload_module(constants)
 
         if not os.path.isfile(playbook_file):
             raise exceptions.FileNotFound(name=playbook_file)

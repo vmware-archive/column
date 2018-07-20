@@ -14,7 +14,7 @@ class TestUtils(TestCase):
         super(TestUtils, self).setUp()
         self.vault_password = 'h2RV4pEX2M2TXvLxYhuy'
 
-    @patch('__builtin__.reload')
+    @patch('six.moves.reload_module')
     @patch('column.utils._read_vault_password_file')
     def test_vault_decrypt(self, mock_read_vault_password):
         encrypted_value = (
@@ -33,7 +33,7 @@ class TestUtils(TestCase):
         self.assertEqual('vmware', utils.vault_decrypt(encrypted_value))
         self.assertTrue(mock_read_vault_password.called)
 
-    @patch('__builtin__.reload')
+    @patch('six.moves.reload_module')
     @patch('column.utils._read_vault_password_file')
     def test_vault_encrypt(self, mock_read_vault_password, mock_reload):
         mock_read_vault_password.return_value = self.vault_password
