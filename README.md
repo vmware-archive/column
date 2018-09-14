@@ -25,7 +25,7 @@ run_playbook() and run_module().
 ## Try it out
 
 ### Prerequisites
-* python 2.7 (python 3 is not fully supported by ansible)
+* python 2.7
 * ansible 2.x
 * six library
 
