@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/vmware/column/branch/master/graph/badge.svg)](https://codecov.io/gh/vmware/column)
 [![Latest Version](https://img.shields.io/pypi/v/column.svg)](https://pypi.org/project/column/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/column.svg)](https://pypi.org/project/column/)
+[![Ansible Versions](https://img.shields.io/badge/ansible-2.2%20%7C%202.3-blue.svg)](https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#release-status)
 [![Format](https://img.shields.io/pypi/format/column.svg)](https://pypi.org/project/column/)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/vmware/column/blob/master/LICENSE)
 [![Slack](https://img.shields.io/badge/slack-join%20chat%20%E2%86%92-e01563.svg)](https://code.vmware.com/web/code/join)
@@ -23,11 +24,6 @@ Each runner exposes two public methods:
 run_playbook() and run_module().
 
 ## Try it out
-
-### Prerequisites
-* python 2.7
-* ansible 2.x
-* six library
 
 ### Install & use
 Install with pip:
