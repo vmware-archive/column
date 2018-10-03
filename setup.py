@@ -36,7 +36,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    install_requires=open('requirements.txt').read().splitlines(),
+    install_requires=['ansible>=2.2.0.0,<2.4.0'] +
+        open('requirements.txt').read().splitlines(),
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
