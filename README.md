@@ -9,6 +9,8 @@
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/vmware/column/blob/master/LICENSE)
 [![Slack](https://img.shields.io/badge/slack-join%20chat%20%E2%86%92-e01563.svg)](https://code.vmware.com/web/code/join)
 
+# VMware has ended active development of this project, this repository will no longer be updated.
+
 ## Overview
 Column is a thin wrapper on top of the Ansible API to serve
 as an entry point for other code when Ansible is needed. Because the Ansible
